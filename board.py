@@ -9,6 +9,12 @@ BOARD_TYPE_OPEN = 2
 BOARD_HEX_WIDTH = 23
 BOARD_MAX_LEVEL = 5
 
+def get_num_board_zones(board_type):
+    if board_type == BOARD_TYPE_WEDGE:
+        return int((math.pow(BOARD_MAX_LEVEL + 1, 2) + BOARD_MAX_LEVEL + 1) / 2)
+    elif board_type == BOARD_TYPE_OPEN:
+        return int(math.pow(BOARD_MAX_LEVEL + 1, 2)) 
+
 class Board(object):
     board_screen = None
     board_type = None
@@ -17,9 +23,12 @@ class Board(object):
     board_color = None
     board_tile_border_color = None
     board_hex_border_color = None
-    num_board_zones = None
-    board_zones_collection = None 
-    tile_collection = None
+    tiles = None
+    board_zones_collection = None
+    @property
+    def num_board_zones(self):
+        return get_num_board_zones(self.board_type)
+    
 
     def __init__(self, screen, new_board_type):
         self.board_screen = screen
@@ -29,23 +38,20 @@ class Board(object):
 #        self.tile_border_color = (0, 0, 0) #black
         self.hex_border_color = (100, 100, 100) #grey
 
-        self.tile_collection = tiles.Tiles(self.board_type)
-
-        if self.board_type == BOARD_TYPE_WEDGE:
-            self.num_board_zones = int((math.pow(BOARD_MAX_LEVEL + 1, 2) + BOARD_MAX_LEVEL + 1) / 2)
-        elif self.board_type == BOARD_TYPE_OPEN:
-            self.num_board_zones = int(math.pow(BOARD_MAX_LEVEL, 2))
+        self.tiles = tiles.Tiles(self.board_type)
         self.board_zones_collection = []
         for i in range(self.num_board_zones):
             self.board_zones_collection.append(hexes.Hexes())
             self.board_zones_collection[i].number = i
-
-    def check_board_zone(self, coordinates):
+    
+    def click_board_zone(self, coordinates):
         click_x, click_y = coordinates
-        for i in range(self.num_board_zones):
-            for j in range(7):
-                if self.point_inside_polygon(click_x, click_y, self.board_zones_collection[i].hex_collection[j].polygon):
-                    print("Board Zone #: " +str(i)+ " | Hex #: " +str(j))
+        for zone_num in range(self.num_board_zones):
+            for hex_num in range(7):
+                if self.point_inside_polygon(click_x, click_y, self.board_zones_collection[zone_num].hex_collection[hex_num].polygon):
+                    print("Board Zone #: " +str(zone_num)+ " | Hex #: " +str(hex_num))
+                    if isinstance(self.tiles.tile_collection[zone_num].hexes.hex_collection[hex_num], hexes.HexNonPlaceholder):
+                        print(self.tiles.tile_collection[zone_num].hexes.hex_collection[hex_num].type)
                     return
 
     def return_hex_coordinates(self, location_x, location_y):
@@ -101,12 +107,12 @@ class Board(object):
     def build(self):
         h = (math.sin(math.radians(30))*BOARD_HEX_WIDTH)
 
-        if self.board_type == BOARD_TYPE_WEDGE:
-            #level 0
-            x0 = BOARD_HEX_WIDTH
-            y0 = 2*BOARD_HEX_WIDTH
-            self.build_tile_holder(0, self.board_color, x0, y0)
+        #level 0
+        x0 = main.MAP_SCREEN_WIDTH/2 + h + BOARD_HEX_WIDTH
+        y0 = 2*BOARD_HEX_WIDTH
+        self.build_tile_holder(0, self.board_color, x0, y0)
 
+        if self.board_type == BOARD_TYPE_WEDGE:
             board_zone_num = 0
             first_time_num_for_current_level = 0
             first_board_zone_num_on_previous_level = 0
@@ -115,26 +121,21 @@ class Board(object):
                     board_zone_num += 1
                     # if drawing the last tile for the level
                     if board_zone_num_for_level == level:
-                        exec("x" +str(board_zone_num)+ " = 3*h+3*BOARD_HEX_WIDTH+x" +str(board_zone_num-level-1))
-                        exec("y" +str(board_zone_num)+ " = BOARD_HEX_WIDTH+y" +str(board_zone_num-level-1))
+                        exec("x" +str(board_zone_num)+ " = 2*h+2*BOARD_HEX_WIDTH+x" +str(board_zone_num-level-1))
+                        exec("y" +str(board_zone_num)+ " = 4*BOARD_HEX_WIDTH+y" +str(board_zone_num-level-1))
                     # if drawing the first tile for the level
                     elif board_zone_num_for_level == 0:
-                        exec("x" +str(board_zone_num)+ " = h+BOARD_HEX_WIDTH+x" +str(first_board_zone_num_on_previous_level+board_zone_num_for_level))
+                        exec("x" +str(board_zone_num)+ " = -h-BOARD_HEX_WIDTH+x" +str(first_board_zone_num_on_previous_level+board_zone_num_for_level))
                         exec("y" +str(board_zone_num)+ " = 5*BOARD_HEX_WIDTH+y" +str(first_board_zone_num_on_previous_level+board_zone_num_for_level))
                         first_time_num_for_current_level = first_board_zone_num_on_previous_level 
                         first_board_zone_num_on_previous_level = board_zone_num
                     # if drawing all other tiles
                     else:
-                        exec("x" +str(board_zone_num)+ " = h+BOARD_HEX_WIDTH+x" +str(first_time_num_for_current_level+board_zone_num_for_level))
+                        exec("x" +str(board_zone_num)+ " = -h-BOARD_HEX_WIDTH+x" +str(first_time_num_for_current_level+board_zone_num_for_level))
                         exec("y" +str(board_zone_num)+ " = 5*BOARD_HEX_WIDTH+y" +str(first_time_num_for_current_level+board_zone_num_for_level))
                     self.build_tile_holder(board_zone_num, eval("[i + 20 * " +str(level)+ " for i in self.board_color]"), eval("x" +str(board_zone_num)), eval("y" +str(board_zone_num)))
 
         elif self.board_type == BOARD_TYPE_OPEN:
-            #level 0
-            x0 = main.SCREEN_WIDTH/2 + h + BOARD_HEX_WIDTH
-            y0 = 2*BOARD_HEX_WIDTH
-            self.build_tile_holder(0, self.board_color, x0, y0)
-            
             board_zone_num = 0
             first_time_num_for_current_level = 0
             first_board_zone_num_on_previous_level = 0
@@ -162,3 +163,6 @@ class Board(object):
                         exec("x" +str(board_zone_num)+ " = -h-BOARD_HEX_WIDTH+x" +str(first_time_num_for_current_level+board_zone_num_for_level-1))
                         exec("y" +str(board_zone_num)+ " = 5*BOARD_HEX_WIDTH+y" +str(first_time_num_for_current_level+board_zone_num_for_level-1))
                     self.build_tile_holder(board_zone_num, eval("[i + 20 * " +str(level)+ " for i in self.board_color]"), eval("x" +str(board_zone_num)), eval("y" +str(board_zone_num)))
+        # place start wedge tile on board
+        self.tiles.tile_collection[0].set_location(x0, y0)
+        self.tiles.tile_group.draw(self.board_screen)

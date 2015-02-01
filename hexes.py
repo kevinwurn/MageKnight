@@ -1,6 +1,3 @@
-import math
-import pygame
-
 HEX_PLAIN = 0
 HEX_HILL = 1
 HEX_FOREST = 2
@@ -14,28 +11,33 @@ HEX_CITY = 8
 TIME_DAY = 0
 TIME_NIGHT = 1
 
-class Hex(pygame.sprite.Sprite):
+# base hex placeholder
+class Hex(object):
     type = None
     polygon = None
     
     def __init__(self):
         super().__init__()
+# base generic non placeholder class   
+class HexNonPlaceholder(Hex):
+    def __init__(self):
+        super().__init__()
     
-class Hex_Plain(Hex):
+class Hex_Plain(HexNonPlaceholder):
     def __init__(self):
         super().__init__()
         self.type = HEX_PLAIN
         @property
         def movement_cost(self):
             return 2
-class Hex_Hill(Hex):
+class Hex_Hill(HexNonPlaceholder):
     def __init__(self):
         super().__init__()
         self.type = HEX_HILL
         @property
         def movement_cost(self):
             return 3
-class Hex_Forest(Hex):
+class Hex_Forest(HexNonPlaceholder):
     def __init__(self):
         super().__init__()
         self.type = HEX_FOREST
@@ -45,14 +47,14 @@ class Hex_Forest(Hex):
                 return 3
             elif time_of_day == TIME_NIGHT:
                 return 5
-class Hex_Wasteland(Hex):
+class Hex_Wasteland(HexNonPlaceholder):
     def __init__(self):
         super().__init__()
         self.type = HEX_WASTELAND
         @property
         def movement_cost(self):
             return 4
-class Hex_Desert(Hex):
+class Hex_Desert(HexNonPlaceholder):
     def __init__(self):
         super().__init__()
         self.type = HEX_DESERT
@@ -62,28 +64,28 @@ class Hex_Desert(Hex):
                 return 5
             elif time_of_day == TIME_NIGHT:
                 return 3        
-class Hex_Swamp(Hex):
+class Hex_Swamp(HexNonPlaceholder):
     def __init__(self):
         super().__init__()
         self.type = HEX_SWAMP
         @property
         def movement_cost(self):
             return 5
-class Hex_Lake(Hex):
+class Hex_Lake(HexNonPlaceholder):
     def __init__(self):
         super().__init__()
         self.type = HEX_LAKE
         @property
         def movement_cost(self):
             return None
-class Hex_Mountain(Hex):
+class Hex_Mountain(HexNonPlaceholder):
     def __init__(self):
         super().__init__()
         self.type = HEX_MOUNTAIN
         @property
         def movement_cost(self):
             return None
-class Hex_City(Hex):
+class Hex_City(HexNonPlaceholder):
     def __init__(self):
         super().__init__()
         self.type = HEX_CITY
