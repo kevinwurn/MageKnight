@@ -1,3 +1,5 @@
+import game
+
 HEX_PLAIN = 0
 HEX_HILL = 1
 HEX_FOREST = 2
@@ -7,9 +9,6 @@ HEX_SWAMP = 5
 HEX_LAKE = 6
 HEX_MOUNTAIN = 7
 HEX_CITY = 8
-
-TIME_DAY = 0
-TIME_NIGHT = 1
 
 # base hex placeholder
 class Hex(object):
@@ -43,9 +42,9 @@ class Hex_Forest(HexNonPlaceholder):
         self.type = HEX_FOREST
         @property
         def movement_cost(self, time_of_day):
-            if time_of_day == TIME_DAY:
+            if time_of_day == game.TIME_DAY:
                 return 3
-            elif time_of_day == TIME_NIGHT:
+            elif time_of_day == game.TIME_NIGHT:
                 return 5
 class Hex_Wasteland(HexNonPlaceholder):
     def __init__(self):
@@ -60,9 +59,9 @@ class Hex_Desert(HexNonPlaceholder):
         self.type = HEX_DESERT
         @property
         def movement_cost(self, time_of_day):
-            if time_of_day == TIME_DAY:
+            if time_of_day == game.TIME_DAY:
                 return 5
-            elif time_of_day == TIME_NIGHT:
+            elif time_of_day == game.TIME_NIGHT:
                 return 3        
 class Hex_Swamp(HexNonPlaceholder):
     def __init__(self):
@@ -94,7 +93,6 @@ class Hex_City(HexNonPlaceholder):
             return 2
 
 class Hexes(object):
-    number = None
     hex_collection = None
 
     def __init__(self):

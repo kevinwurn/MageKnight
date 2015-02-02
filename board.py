@@ -1,11 +1,13 @@
 import math
 import pygame
 import main
+import game
 import tiles
 import hexes
 
 BOARD_TYPE_WEDGE = 1
 BOARD_TYPE_OPEN = 2
+
 BOARD_HEX_WIDTH = 23
 BOARD_MAX_LEVEL = 5
 
@@ -30,29 +32,52 @@ class Board(object):
         return get_num_board_zones(self.board_type)
     
 
-    def __init__(self, screen, new_board_type):
+    def __init__(self, screen, mage_knight):
         self.board_screen = screen
-        self.board_type = new_board_type
+        if mage_knight.game_type == game.GAME_TYPE_SOLO:
+            self.board_type = BOARD_TYPE_WEDGE
+        else:
+            self.board_type = BOARD_TYPE_OPEN
         self.hex_border_width = 2
         self.board_color = (0, 30, 100) #blue
 #        self.tile_border_color = (0, 0, 0) #black
         self.hex_border_color = (100, 100, 100) #grey
 
-        self.tiles = tiles.Tiles(self.board_type)
+        self.tiles = tiles.Tiles(self.board_type, mage_knight)
         self.board_zones_collection = []
         for i in range(self.num_board_zones):
             self.board_zones_collection.append(hexes.Hexes())
             self.board_zones_collection[i].number = i
     
-    def click_board_zone(self, coordinates):
+    def get_board_zone(self, coordinates):
         click_x, click_y = coordinates
         for zone_num in range(self.num_board_zones):
             for hex_num in range(7):
                 if self.point_inside_polygon(click_x, click_y, self.board_zones_collection[zone_num].hex_collection[hex_num].polygon):
-                    print("Board Zone #: " +str(zone_num)+ " | Hex #: " +str(hex_num))
-                    if isinstance(self.tiles.tile_collection[zone_num].hexes.hex_collection[hex_num], hexes.HexNonPlaceholder):
-                        print(self.tiles.tile_collection[zone_num].hexes.hex_collection[hex_num].type)
-                    return
+                    return (zone_num, hex_num)
+
+    def check_mousedrag(self, mousedown_coordinates, mouseup_coordinates):
+        mousedown_location = self.get_board_zone(mousedown_coordinates)
+        mouseup_location = self.get_board_zone(mouseup_coordinates)
+        # mouse has been dragged and clicked
+        # check for exploration
+        if mousedown_location != mouseup_location:
+            #check if dragged from tile to board and if hexes are adjacent
+            if isinstance(self.tiles.tile_collection[mousedown_location[0]].hexes.hex_collection[mousedown_location[1]], hexes.HexNonPlaceholder) and \
+                isinstance(self.tiles.tile_collection[mouseup_location[0]].hexes.hex_collection[mouseup_location[1]], hexes.HexNonPlaceholder) == False and \
+                self.return_if_hexes_adjacent(mousedown_coordinates, mouseup_coordinates):
+                    new_tile = self.tiles.draw()
+                    if new_tile == None:
+                        print("No more tiles left")
+                    else:
+                        #place new tile in tile collection to be placed on board when building board
+                        self.tiles.tile_collection[mouseup_location[0]] = new_tile
+    def return_if_hexes_adjacent(self, hex1_coordinates, hex2_coordinates):
+        dist = math.hypot(hex2_coordinates[0] - hex1_coordinates[0], hex2_coordinates[1] - hex1_coordinates[1])
+        if dist > 2 * BOARD_HEX_WIDTH:
+            return False
+        else:
+            return True
 
     def return_hex_coordinates(self, location_x, location_y):
         pl = [(location_x - BOARD_HEX_WIDTH, location_y),
@@ -164,5 +189,8 @@ class Board(object):
                         exec("y" +str(board_zone_num)+ " = 5*BOARD_HEX_WIDTH+y" +str(first_time_num_for_current_level+board_zone_num_for_level-1))
                     self.build_tile_holder(board_zone_num, eval("[i + 20 * " +str(level)+ " for i in self.board_color]"), eval("x" +str(board_zone_num)), eval("y" +str(board_zone_num)))
         # place start wedge tile on board
-        self.tiles.tile_collection[0].set_location(x0, y0)
+        for i in range(len(self.tiles.tile_collection)):
+            if isinstance(self.tiles.tile_collection[i], tiles.TileNonPlaceholder):
+                self.tiles.tile_collection[i].set_location(eval("x" + str(i)), eval("y" + str(i)))
+                self.tiles.tile_group.add(self.tiles.tile_collection[i])         
         self.tiles.tile_group.draw(self.board_screen)

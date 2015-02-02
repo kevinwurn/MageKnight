@@ -1,4 +1,5 @@
 import pygame
+import game
 import board
 
 MAP_SCREEN_WIDTH = 1024
@@ -9,17 +10,22 @@ def main():
     
     map_screen = pygame.display.set_mode((MAP_SCREEN_WIDTH, MAP_SCREEN_HEIGHT))
     pygame.display.set_caption("Mage Knight: Map")
-    map_board = board.Board(map_screen, board.BOARD_TYPE_WEDGE)
+    mage_knight = game.Game(map_screen)
+    map_board = board.Board(map_screen, mage_knight)
 
     done = False
     clock = pygame.time.Clock()
 
+    temp_mousedown_coordinates = None
     while not done:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done = True
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                map_board.click_board_zone(pygame.mouse.get_pos())
+                temp_mousedown_coordinates = pygame.mouse.get_pos()
+            elif event.type == pygame.MOUSEBUTTONUP:
+                map_board.check_mousedrag(temp_mousedown_coordinates, pygame.mouse.get_pos())
+                
                 
         map_board.build()
         pygame.display.flip()
