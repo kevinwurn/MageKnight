@@ -59,7 +59,6 @@ class Game(object):
         self.game_type = GAME_TYPE_SOLO
         if self.game_type == GAME_TYPE_SOLO:
             self.num_rounds = 6
-            self.arythrea = player.Arythrea(self)
             self.num_green_tiles = 7
             self.num_brown_non_city_tiles = 2
             self.num_brown_city_tiles = 2
@@ -82,3 +81,13 @@ class Game(object):
             self.units_gold_discard = []
             self.player_order = []
         #self.game_type = 3
+        
+    def setup(self):
+        # don't forget to choose tactics first
+        # roll mana die
+        # setup all of the offers
+        # crap... forgot about tokens... will need to add token offers to game class as well
+        # common skill area
+        # round order
+        if self.current_player == player.ARYTHREA:
+            self.arythrea.start_turn()

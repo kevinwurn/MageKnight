@@ -1,5 +1,7 @@
 import pygame
 import game
+import actions
+import cards
 
 # constats for players
 ARYTHREA = 40
@@ -157,7 +159,7 @@ class Player(pygame.sprite.Sprite):
         self.deed_deck = []
         self.deed_discard = []
         self.trashed_cards = []
-        self.hand = [PLAYER_MAX_HAND_SIZE]
+        self.hand = []
         self.card_assets = []
         self.triggers = []
         self.skills = []
@@ -171,7 +173,19 @@ class Player(pygame.sprite.Sprite):
         self.location_tile_num = 0
         self.location_hex_num = 6
         
+    def start_turn(self):
+        # process triggers = add magical_glade.interact_start()
+        for i in range(self.hand_limit):
+            card = self.draw()
+            if card:
+                self.hand.append(card)
+            else:
+                print("end round")
+                return False
+        
+        
     def end_turn(self):
+        #cleanup
         self.num_red_tokens = 0
         self.num_blue_tokens = 0
         self.num_white_tokens = 0
@@ -185,7 +199,7 @@ class Player(pygame.sprite.Sprite):
         self.trashed_cards = []
         #draw cards to hand limit
         self.card_assets = []
-        #process triggers - add level_up trigger and add magical_glade.interact_start()
+        #process triggers - add level_up trigger
         #reset skills
         self.influence = 0
         if self.level_up == True:
@@ -229,10 +243,16 @@ class Player(pygame.sprite.Sprite):
             # draw advanced action from advanced actions offer
             # draw two skills from skils offer and choose one skill        
 
+    def draw(self):
+        if self.deed_deck:
+            card = self.deed_deck.pop()
+            return card
+        return False
+
 class Arythrea(Player):
-    game_engine = None
-    
     def __init__(self, new_game_engine):
         super().__init__(new_game_engine)
         self.name = "Arythrea"
-        self.game_engine = new_game_engine
+        list_of_cards = actions.Actions(self.game_engine).actions_collection
+        for card in list_of_cards:
+            self.deed_deck.append(card)

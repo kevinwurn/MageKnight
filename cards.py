@@ -16,9 +16,9 @@ class DeedCard(Card):
     game_engine = None
     uid = None
     
-    def __init__(self, game_engine_game):
+    def __init__(self, new_engine_game):
         super().__init__()
-        self.game_engine = game_engine_game
+        self.game_engine = new_engine_game
         self.uid = uuid.uuid4()
     def discard(self):
         print("discard")

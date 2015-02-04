@@ -151,7 +151,7 @@ class Board(object):
 
         if self.board_type == BOARD_TYPE_WEDGE:
             #level 0
-            x0 = main.GAME_SCREEN_WIDTH/4
+            x0 = main.GAME_SCREEN_WIDTH/5
             self.build_tile_holder(0, BOARD_HEX_BORDER_COLOR, x0, y0)
         
             board_zone_num = 0

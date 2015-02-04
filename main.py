@@ -19,16 +19,19 @@ def main():
     start_screen = start_gui_panel.StartGUIPanel(game_screen)
     #start_screen.launch()
     if start_screen.player == player.ARYTHREA:
-        game_engine.current_player = game_engine.arythrea
+        game_engine.current_player = player.ARYTHREA
     else:
-        game_engine.current_player = game_engine.arythrea
+        game_engine.current_player = player.ARYTHREA
+    arythrea = player.Arythrea(game_engine)        
+    game_engine.arythrea = arythrea
+
+    game_engine.setup()
     game_board = board.Board(game_screen, game_engine)
     player_board = player_panel.PlayerPanel(game_screen, game_engine, game_board)
     other_board = other_panel.OtherPanel(game_screen, game_engine, game_board)
 
     done = False
     clock = pygame.time.Clock()
-
     temp_mousedown_coordinates = None
     while not done:
         for event in pygame.event.get():
