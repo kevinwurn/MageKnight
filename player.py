@@ -21,6 +21,7 @@ CARD_ASSET_TYPE_INFLUENCE = 5
 CARD_ASSET_ACTION_TYPE_ADVANCED = 30
 CARD_ASSET_ACTION_TYPE_NON_ADVANCED = 31 
 
+# pass around mainly for battling monsters.  Allowing for future development to assign individual assets to monsters 
 class CardAsset(object):
     source_id = None
     type = None
@@ -130,6 +131,7 @@ class Player(pygame.sprite.Sprite):
     card_assets = None
     triggers = None
     skills = None
+    skills_offer = None
     influence = None
     move = None
     reputation = None
@@ -159,6 +161,7 @@ class Player(pygame.sprite.Sprite):
         self.card_assets = []
         self.triggers = []
         self.skills = []
+        self.skills_offer = []
         self.influence = 0
         self.move = 0
         self.reputation = ReputationTracker() 
@@ -194,24 +197,37 @@ class Player(pygame.sprite.Sprite):
             self.armor = PLAYER_ARMOR
             self.hand_limit = PLAYER_MAX_HAND_SIZE
             self.max_units = PLAYER_MAX_UNITS
+            # if level 2
+            # draw advanced action from advanced actions offer
+            # draw two skills from skils offer and choose one skill
         elif self.fame.level == 3 or self.fame.level == 4:
             self.armor = PLAYER_ARMOR + 1
             self.hand_limit = PLAYER_MAX_HAND_SIZE
             self.max_units = PLAYER_MAX_UNITS + 1
+            # if level 4
+            # draw advanced action from advanced actions offer
+            # draw two skills from skils offer and choose one skill
         elif self.fame.level == 5 or self.fame.level == 6:
             self.armor = PLAYER_ARMOR + 1
             self.hand_limit = PLAYER_MAX_HAND_SIZE + 1
             self.max_units = PLAYER_MAX_UNITS + 2
+            # if level 6
+            # draw advanced action from advanced actions offer
+            # draw two skills from skils offer and choose one skill
         elif self.fame.level == 7 or self.fame.level == 8:
             self.armor = PLAYER_ARMOR + 2
             self.hand_limit = PLAYER_MAX_HAND_SIZE + 1
             self.max_units = PLAYER_MAX_UNITS + 3
+            # if level 8
+            # draw advanced action from advanced actions offer
+            # draw two skills from skils offer and choose one skill
         elif self.fame.level == 9 or self.fame.level == 10:
             self.armor = PLAYER_ARMOR + 2
             self.hand_limit = PLAYER_MAX_HAND_SIZE + 2
-            self.max_units = PLAYER_MAX_UNITS + 4        
-            
-        
+            self.max_units = PLAYER_MAX_UNITS + 4
+            # if level 10
+            # draw advanced action from advanced actions offer
+            # draw two skills from skils offer and choose one skill        
 
 class Arythrea(Player):
     game_engine = None

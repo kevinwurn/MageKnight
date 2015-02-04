@@ -34,29 +34,29 @@ class Card_Arythrea_Rage(Actions):
         self.name = "Rage"
     def play(self):
         if self.game_engine.battle_phase == game.BATTLE_PHASE_BLOCK:
-            self.game_engine.arythrea.battle_assets.append(player.CardAsset(self.uid, player.CARD_ASSET_TYPE_BLOCK, player.CARD_ASSET_ACTION_TYPE_NON_ADVANCED, player.ELEMENT_PHYSICAL, 2, player.CRYSTAL_NONE))
+            self.game_engine.arythrea.battle_assets.append(player.CardAsset(self.uid, player.CARD_ASSET_TYPE_BLOCK, player.CARD_ASSET_ACTION_TYPE_NON_ADVANCED, game.ELEMENT_PHYSICAL, 2, game.CRYSTAL_NONE))
             return True
         elif self.game_engine.battle_phase == game.BATTLE_PHASE_ATTACK:
-            self.game_engine.arythrea.attack.append(player.CardAsset(self.uid, player.CARD_ASSET_TYPE_ATTACK, player.CARD_ASSET_ACTION_TYPE_NON_ADVANCED, player.ELEMENT_PHYSICAL, 2, player.CRYSTAL_NONE))
+            self.game_engine.arythrea.attack.append(player.CardAsset(self.uid, player.CARD_ASSET_TYPE_ATTACK, player.CARD_ASSET_ACTION_TYPE_NON_ADVANCED, game.ELEMENT_PHYSICAL, 2, game.CRYSTAL_NONE))
             return True
         return False
     def play_advanced(self):
         if self.game_engine.arythrea.num_red_tokens > 0:
             self.game_engine.arythrea.num_red_tokens -= 1
-            self.game_engine.arythrea.battle_assets.append(player.CardAsset(self.uid, player.CARD_ASSET_TYPE_ATTACK, player.CARD_ASSET_ACTION_TYPE_ADVANCED, player.ELEMENT_PHYSICAL, 4, player.CRYSTAL_NONE))
+            self.game_engine.arythrea.battle_assets.append(player.CardAsset(self.uid, player.CARD_ASSET_TYPE_ATTACK, player.CARD_ASSET_ACTION_TYPE_ADVANCED, game.ELEMENT_PHYSICAL, 4, game.CRYSTAL_NONE))
             return True
         elif self.game_engine.arythrea.num_red_crystals > 0:
             self.game_engine.arythrea.num_red_crystals -= 1
-            self.game_engine.arythrea.battle_assets.append(player.CardAsset(self.uid, player.CARD_ASSET_TYPE_ATTACK, player.CARD_ASSET_ACTION_TYPE_ADVANCED, player.ELEMENT_PHYSICAL, 4, player.CRYSTAL_RED))
+            self.game_engine.arythrea.battle_assets.append(player.CardAsset(self.uid, player.CARD_ASSET_TYPE_ATTACK, player.CARD_ASSET_ACTION_TYPE_ADVANCED, game.ELEMENT_PHYSICAL, 4, game.CRYSTAL_RED))
             return True
         return False
     def undo(self):
         for card_asset in self.game.arythrea.card_assets:
             if card_asset.source_id == self.uid:
                 if card_asset.action_type == player.CARD_ASSET_ACTION_TYPE_ADVANCED:
-                    if card_asset.crystal_type == player.CRYSTAL_NONE:
+                    if card_asset.crystal_type == game.CRYSTAL_NONE:
                         self.game_engine.arythrea.num_red_tokens += 1
-                    elif card_asset.crystal_type == player.CRYSTAL_RED:
+                    elif card_asset.crystal_type == game.CRYSTAL_RED:
                         self.game_engine.arythrea.num_red_crystals += 1
                     self.game_engine.arythrea.card_assets.remove(card_asset)
                     return True
