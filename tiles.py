@@ -60,11 +60,11 @@ class TileNonPlaceholder(Tile):
         self.tokens = []
         self.city_level = 0
     def fit_within_board(self):
-        self.image = pygame.transform.smoothscale(self.image, (117,140))
+        self.image = pygame.transform.smoothscale(self.image, (115,137))
     def set_location(self, x, y):
         h = (math.sin(math.radians(30))*board.BOARD_HEX_WIDTH)
-        self.rect.x = x - board.BOARD_HEX_WIDTH
-        self.rect.y = y - 2*board.BOARD_HEX_WIDTH + h/2-6
+        self.rect.x = x - board.BOARD_HEX_WIDTH + 1
+        self.rect.y = y - 2*board.BOARD_HEX_WIDTH + h/2-4
         
 class Walls(object):
     wall = None

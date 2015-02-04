@@ -37,3 +37,10 @@ class Card_Back(Card):
         self.image = pygame.image.load(current_folder +"/assets/images/cards/card_back.png").convert_alpha()
         self.fit_within_board()
         self.rect = self.image.get_rect()
+class Card_Player(Card):
+    # for now default to arythrea.  currently many ways to do this.  not sure the best way yet.
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load(current_folder +"/assets/images/cards/players/arythrea/card_arythrea.png").convert_alpha()
+        self.fit_within_board()
+        self.rect = self.image.get_rect()    

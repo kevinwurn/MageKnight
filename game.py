@@ -81,4 +81,4 @@ class Game(object):
             self.units_gold_offer = units.GoldUnits
             self.units_gold_discard = []
             self.player_order = []
-        self.game_type = 3
+        #self.game_type = 3

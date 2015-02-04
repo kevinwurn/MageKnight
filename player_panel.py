@@ -19,6 +19,7 @@ class PlayerPanel(pygame.sprite.Sprite):
     location_y = None
     player_card = None
     draw_pile = None
+    discard_pile = None
     panel_compoents = None
 
     def __init__(self, game_screen, new_game_engine, new_game_board):
@@ -46,19 +47,26 @@ class PlayerPanel(pygame.sprite.Sprite):
         #panel_compoenents sprite group        
         self.panel_compoents = pygame.sprite.Group()
         #build player card
-        self.player_card = pygame.sprite.Sprite()
-        self.player_card.image = pygame.Surface([50, 75])
-        self.player_card.image.fill((0,0,0))
-        self.player_card.rect = self.player_card.image.get_rect()
-        self.player_card.rect.x = self.location_x + 10 
+        self.player_card = cards.Card_Player()
+        self.player_card.rect.x = self.location_x + 20 
         self.player_card.rect.y = self.location_y + 10
         self.panel_compoents.add(self.player_card)
         
         #build draw pile
         self.draw_pile = cards.Card_Back()
-        self.draw_pile.rect.x = self.location_x + 10 
+        self.draw_pile.rect.x = self.location_x + 20 
         self.draw_pile.rect.y = self.location_y + 100
         self.panel_compoents.add(self.draw_pile)
+        
+        #build discard pile
+        self.discard_pile = pygame.sprite.Sprite()
+        self.discard_pile.image = pygame.Surface([50, 75])
+        self.discard_pile.image.fill((0,0,0))
+        self.discard_pile.rect = self.discard_pile.image.get_rect()
+        self.discard_pile.rect.x = self.location_x + 90 
+        self.discard_pile.rect.y = self.location_y + 100
+        self.panel_compoents.add(self.discard_pile)
+        
     
     def paint(self):
         pygame.draw.rect(self.screen, PLAYER_PANEL_COLOR, self.rect)
