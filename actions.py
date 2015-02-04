@@ -17,7 +17,7 @@ CARD_ARYTHREA_CONCENTRATION = 15
 CARD_ARYTHREA_IMPROVISATION = 16
 
 
-class Actions(cards.DeedCards):
+class Actions(cards.DeedCard):
     name = None
 
     def __init__(self):
@@ -33,21 +33,21 @@ class Card_Arythrea_Rage(Actions):
         super().__init__()
         self.name = "Rage"
     def play(self):
-        if self.mage_knight.battle_phase == game.BATTLE_PHASE_BLOCK:
-            self.mage_knight.arythrea.battle_assets.append(player.CardAsset(self.uid, player.CARD_ASSET_TYPE_BLOCK, player.CARD_ASSET_ACTION_TYPE_NON_ADVANCED, player.ELEMENT_PHYSICAL, 2, player.CRYSTAL_NONE))
+        if self.game_engine.battle_phase == game.BATTLE_PHASE_BLOCK:
+            self.game_engine.arythrea.battle_assets.append(player.CardAsset(self.uid, player.CARD_ASSET_TYPE_BLOCK, player.CARD_ASSET_ACTION_TYPE_NON_ADVANCED, player.ELEMENT_PHYSICAL, 2, player.CRYSTAL_NONE))
             return True
-        elif self.mage_knight.battle_phase == game.BATTLE_PHASE_ATTACK:
-            self.mage_knight.arythrea.attack.append(player.CardAsset(self.uid, player.CARD_ASSET_TYPE_ATTACK, player.CARD_ASSET_ACTION_TYPE_NON_ADVANCED, player.ELEMENT_PHYSICAL, 2, player.CRYSTAL_NONE))
+        elif self.game_engine.battle_phase == game.BATTLE_PHASE_ATTACK:
+            self.game_engine.arythrea.attack.append(player.CardAsset(self.uid, player.CARD_ASSET_TYPE_ATTACK, player.CARD_ASSET_ACTION_TYPE_NON_ADVANCED, player.ELEMENT_PHYSICAL, 2, player.CRYSTAL_NONE))
             return True
         return False
     def play_advanced(self):
-        if self.mage_knight.arythrea.num_red_tokens > 0:
-            self.mage_knight.arythrea.num_red_tokens -= 1
-            self.mage_knight.arythrea.battle_assets.append(player.CardAsset(self.uid, player.CARD_ASSET_TYPE_ATTACK, player.CARD_ASSET_ACTION_TYPE_ADVANCED, player.ELEMENT_PHYSICAL, 4, player.CRYSTAL_NONE))
+        if self.game_engine.arythrea.num_red_tokens > 0:
+            self.game_engine.arythrea.num_red_tokens -= 1
+            self.game_engine.arythrea.battle_assets.append(player.CardAsset(self.uid, player.CARD_ASSET_TYPE_ATTACK, player.CARD_ASSET_ACTION_TYPE_ADVANCED, player.ELEMENT_PHYSICAL, 4, player.CRYSTAL_NONE))
             return True
-        elif self.mage_knight.arythrea.num_red_crystals > 0:
-            self.mage_knight.arythrea.num_red_crystals -= 1
-            self.mage_knight.arythrea.battle_assets.append(player.CardAsset(self.uid, player.CARD_ASSET_TYPE_ATTACK, player.CARD_ASSET_ACTION_TYPE_ADVANCED, player.ELEMENT_PHYSICAL, 4, player.CRYSTAL_RED))
+        elif self.game_engine.arythrea.num_red_crystals > 0:
+            self.game_engine.arythrea.num_red_crystals -= 1
+            self.game_engine.arythrea.battle_assets.append(player.CardAsset(self.uid, player.CARD_ASSET_TYPE_ATTACK, player.CARD_ASSET_ACTION_TYPE_ADVANCED, player.ELEMENT_PHYSICAL, 4, player.CRYSTAL_RED))
             return True
         return False
     def undo(self):
@@ -55,13 +55,13 @@ class Card_Arythrea_Rage(Actions):
             if card_asset.source_id == self.uid:
                 if card_asset.action_type == player.CARD_ASSET_ACTION_TYPE_ADVANCED:
                     if card_asset.crystal_type == player.CRYSTAL_NONE:
-                        self.mage_knight.arythrea.num_red_tokens += 1
+                        self.game_engine.arythrea.num_red_tokens += 1
                     elif card_asset.crystal_type == player.CRYSTAL_RED:
-                        self.mage_knight.arythrea.num_red_crystals += 1
-                    self.mage_knight.arythrea.card_assets.remove(card_asset)
+                        self.game_engine.arythrea.num_red_crystals += 1
+                    self.game_engine.arythrea.card_assets.remove(card_asset)
                     return True
                 elif card_asset.action_type == player.CARD_ASSET_ACTION_TYPE_NON_ADVANCED:
-                    self.mage_knight.arythrea.card_assets.remove(card_asset)
+                    self.game_engine.arythrea.card_assets.remove(card_asset)
                     return True
         return False
 
@@ -117,5 +117,4 @@ class Card_Arythrea_Concentration(Actions):
         
 class Card_Arythrea_Improvisation(Actions):
     def __init__(self):
-        super().__init__()
-        self.name = "Improvisation"
+        super().__

@@ -7,51 +7,42 @@ import hexes
 
 BOARD_TYPE_WEDGE = 1
 BOARD_TYPE_OPEN = 2
-
+BOARD_COLOR = (0, 30, 100) #blue
+BOARD_HEX_BORDER_COLOR = (100, 100, 100) #grey
+BOARD_HEX_BORDER_WIDTH = 2
 BOARD_HEX_WIDTH = 23
-BOARD_MAX_LEVEL = 5
-
-def get_num_board_zones(board_type):
-    if board_type == BOARD_TYPE_WEDGE:
-        return int((math.pow(BOARD_MAX_LEVEL + 1, 2) + BOARD_MAX_LEVEL + 1) / 2)
-    elif board_type == BOARD_TYPE_OPEN:
-        return int(math.pow(BOARD_MAX_LEVEL + 1, 2)) 
 
 class Board(object):
     board_screen = None
     board_type = None
     board_hex_width = None
-    board_hex_border_width = None
     board_color = None
     board_tile_border_color = None
     board_hex_border_color = None
+    board_max_level = None
     tiles = None
     board_zones_collection = None
-    @property
-    def num_board_zones(self):
-        return get_num_board_zones(self.board_type)
-    
 
-    def __init__(self, screen, mage_knight):
+    def __init__(self, screen, game_engine):
         self.board_screen = screen
-        if mage_knight.game_type == game.GAME_TYPE_SOLO:
+        if game_engine.game_type == game.GAME_TYPE_SOLO:
             self.board_type = BOARD_TYPE_WEDGE
+            self.board_max_level = 5
         else:
             self.board_type = BOARD_TYPE_OPEN
-        self.hex_border_width = 2
-        self.board_color = (0, 30, 100) #blue
-#        self.tile_border_color = (0, 0, 0) #black
-        self.hex_border_color = (100, 100, 100) #grey
+            self.board_max_level = 4
+        game_engine.num_board_zones = self.get_num_board_zones(self.board_type)
 
-        self.tiles = tiles.Tiles(self.board_type, mage_knight)
+
+        self.tiles = tiles.Tiles(self.board_type, game_engine)
         self.board_zones_collection = []
-        for i in range(self.num_board_zones):
+        for i in range(self.get_num_board_zones(self.board_type)):
             self.board_zones_collection.append(hexes.Hexes())
             self.board_zones_collection[i].number = i
     
     def get_board_zone(self, coordinates):
         click_x, click_y = coordinates
-        for zone_num in range(self.num_board_zones):
+        for zone_num in range(self.get_num_board_zones(self.board_type)):
             for hex_num in range(7):
                 if self.point_inside_polygon(click_x, click_y, self.board_zones_collection[zone_num].hex_collection[hex_num].polygon):
                     return (zone_num, hex_num)
@@ -59,25 +50,37 @@ class Board(object):
     def check_mousedrag(self, mousedown_coordinates, mouseup_coordinates):
         mousedown_location = self.get_board_zone(mousedown_coordinates)
         mouseup_location = self.get_board_zone(mouseup_coordinates)
-        # mouse has been dragged and clicked
-        # check for exploration
-        if mousedown_location != mouseup_location:
-            #check if dragged from tile to board and if hexes are adjacent
-            if isinstance(self.tiles.tile_collection[mousedown_location[0]].hexes.hex_collection[mousedown_location[1]], hexes.HexNonPlaceholder) and \
-                isinstance(self.tiles.tile_collection[mouseup_location[0]].hexes.hex_collection[mouseup_location[1]], hexes.HexNonPlaceholder) == False and \
-                self.return_if_hexes_adjacent(mousedown_coordinates, mouseup_coordinates):
-                    new_tile = self.tiles.draw()
-                    if new_tile == None:
-                        print("No more tiles left")
-                    else:
-                        #place new tile in tile collection to be placed on board when building board
-                        self.tiles.tile_collection[mouseup_location[0]] = new_tile
+        
+        if(mousedown_location != None and mouseup_location != None):
+            # mouse has been dragged and clicked
+            # check for exploration
+            if mousedown_location != mouseup_location:
+                #check if dragged from tile to board and if hexes are adjacent
+                if isinstance(self.tiles.tile_collection[mousedown_location[0]].hexes.hex_collection[mousedown_location[1]], hexes.HexNonPlaceholder) and \
+                    isinstance(self.tiles.tile_collection[mouseup_location[0]].hexes.hex_collection[mouseup_location[1]], hexes.HexNonPlaceholder) == False and \
+                    self.return_if_hexes_adjacent(mousedown_coordinates, mouseup_coordinates):
+                        new_tile = self.tiles.draw()
+                        if new_tile == None:
+                            print("No more tiles left")
+                        else:
+                            #place new tile in tile collection to be placed on board when building board
+                            self.tiles.tile_collection[mouseup_location[0]] = new_tile
+            else:
+                print("Tile #:" +str(mousedown_location[0])+ " | Hex #:" + str(mousedown_location[1]))
+                if isinstance(self.tiles.tile_collection[mousedown_location[0]], tiles.TileNonPlaceholder):
+                    print(self.tiles.tile_collection[mousedown_location[0]].hexes.hex_collection[mousedown_location[1]])                
     def return_if_hexes_adjacent(self, hex1_coordinates, hex2_coordinates):
         dist = math.hypot(hex2_coordinates[0] - hex1_coordinates[0], hex2_coordinates[1] - hex1_coordinates[1])
         if dist > 2 * BOARD_HEX_WIDTH:
             return False
         else:
             return True
+
+    def get_num_board_zones(self, board_type):
+        if board_type == BOARD_TYPE_WEDGE:
+            return int((math.pow(self.board_max_level + 1, 2) + self.board_max_level + 1) / 2)
+        elif board_type == BOARD_TYPE_OPEN:
+            return int(math.pow(self.board_max_level + 1, 2)) 
 
     def return_hex_coordinates(self, location_x, location_y):
         pl = [(location_x - BOARD_HEX_WIDTH, location_y),
@@ -127,21 +130,21 @@ class Board(object):
             exec("pl" + str(i) + " = self.return_hex_coordinates(hex" + str(i) + "x, hex" + str(i) + "y)")
             self.board_zones_collection[zone_num].hex_collection[i-1].polygon = eval('pl' + str(i))
             pygame.draw.polygon(self.board_screen, color, eval('pl' + str(i)))
-            pygame.draw.polygon(self.board_screen, self.hex_border_color, eval('pl' + str(i)), self.hex_border_width)
+            pygame.draw.polygon(self.board_screen, BOARD_HEX_BORDER_COLOR, eval('pl' + str(i)), BOARD_HEX_BORDER_WIDTH)
 
     def build(self):
         h = (math.sin(math.radians(30))*BOARD_HEX_WIDTH)
-
-        #level 0
-        x0 = main.MAP_SCREEN_WIDTH/2 + h + BOARD_HEX_WIDTH
         y0 = 2*BOARD_HEX_WIDTH
-        self.build_tile_holder(0, self.board_color, x0, y0)
 
         if self.board_type == BOARD_TYPE_WEDGE:
+            #level 0
+            x0 = main.GAME_SCREEN_WIDTH/4
+            self.build_tile_holder(0, BOARD_HEX_BORDER_COLOR, x0, y0)
+        
             board_zone_num = 0
             first_time_num_for_current_level = 0
             first_board_zone_num_on_previous_level = 0
-            for level in range(1, BOARD_MAX_LEVEL+1):
+            for level in range(1, self.board_max_level+1):
                 for board_zone_num_for_level in range(level+1):
                     board_zone_num += 1
                     # if drawing the last tile for the level
@@ -158,14 +161,18 @@ class Board(object):
                     else:
                         exec("x" +str(board_zone_num)+ " = -h-BOARD_HEX_WIDTH+x" +str(first_time_num_for_current_level+board_zone_num_for_level))
                         exec("y" +str(board_zone_num)+ " = 5*BOARD_HEX_WIDTH+y" +str(first_time_num_for_current_level+board_zone_num_for_level))
-                    self.build_tile_holder(board_zone_num, eval("[i + 20 * " +str(level)+ " for i in self.board_color]"), eval("x" +str(board_zone_num)), eval("y" +str(board_zone_num)))
+                    self.build_tile_holder(board_zone_num, eval("[i + 20 * " +str(level)+ " for i in BOARD_COLOR]"), eval("x" +str(board_zone_num)), eval("y" +str(board_zone_num)))
 
         elif self.board_type == BOARD_TYPE_OPEN:
+            #level 0
+            x0 = main.GAME_SCREEN_WIDTH/3 + 4*BOARD_HEX_WIDTH + h
+            self.build_tile_holder(0, BOARD_HEX_BORDER_COLOR, x0, y0)
+            
             board_zone_num = 0
             first_time_num_for_current_level = 0
             first_board_zone_num_on_previous_level = 0
             max_board_zone_num_increment=0
-            for level in range(1, BOARD_MAX_LEVEL+1):
+            for level in range(1, self.board_max_level+1):
                 for board_zone_num_for_level in range(level+max_board_zone_num_increment+2):
                     board_zone_num += 1
                     # if drawing the last tile for the level
@@ -187,7 +194,7 @@ class Board(object):
                     else:
                         exec("x" +str(board_zone_num)+ " = -h-BOARD_HEX_WIDTH+x" +str(first_time_num_for_current_level+board_zone_num_for_level-1))
                         exec("y" +str(board_zone_num)+ " = 5*BOARD_HEX_WIDTH+y" +str(first_time_num_for_current_level+board_zone_num_for_level-1))
-                    self.build_tile_holder(board_zone_num, eval("[i + 20 * " +str(level)+ " for i in self.board_color]"), eval("x" +str(board_zone_num)), eval("y" +str(board_zone_num)))
+                    self.build_tile_holder(board_zone_num, eval("[i + 20 * " +str(level)+ " for i in BOARD_COLOR]"), eval("x" +str(board_zone_num)), eval("y" +str(board_zone_num)))
         # place start wedge tile on board
         for i in range(len(self.tiles.tile_collection)):
             if isinstance(self.tiles.tile_collection[i], tiles.TileNonPlaceholder):

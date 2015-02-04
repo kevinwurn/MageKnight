@@ -1,4 +1,11 @@
 import pygame
+import game
+
+# constats for players
+ARYTHREA = 40
+PLAYER_MAX_HAND_SIZE = 5
+PLAYER_ARMOR = 2
+PLAYER_MAX_UNITS = 1
 
 # constants for the Trackers
 REPUTATION_TRACKER_END = 15
@@ -11,17 +18,6 @@ CARD_ASSET_TYPE_RANGED_ATTACK = 2
 CARD_ASSET_TYPE_SIEGE_ATTACK = 3
 CARD_ASSET_TYPE_MOVE = 4
 CARD_ASSET_TYPE_INFLUENCE = 5
-ELEMENT_PHYSICAL = 10
-ELEMENT_FIRE = 11
-ELEMENT_COLD = 12
-ELEMENT_COLD_FIRE = 13
-CRYSTAL_NONE = 20
-CRYSTAL_RED = 21
-CRYSTAL_BLUE = 22
-CRYSTAL_WHITE = 23
-CRYSTAL_GREEN = 24
-CRYSTAL_GOLD = 25
-CRYSTAL_BLACK = 26
 CARD_ASSET_ACTION_TYPE_ADVANCED = 30
 CARD_ASSET_ACTION_TYPE_NON_ADVANCED = 31 
 
@@ -111,9 +107,10 @@ class FameTracker(object):
             self.reputation -= points
 
 class Player(pygame.sprite.Sprite):
+    game_engine = None
     name = None
     armor = None
-    num_cards = None
+    hand_limit = None
     num_red_crystals = None
     num_blue_crystals = None
     num_white_crystals = None
@@ -127,8 +124,11 @@ class Player(pygame.sprite.Sprite):
     num_gold_tokens = None
     num_black_tokens = None
     deed_deck = None
+    deed_discard = None
+    trashed_cards = None
     hand = None
     card_assets = None
+    triggers = None
     skills = None
     influence = None
     move = None
@@ -136,11 +136,14 @@ class Player(pygame.sprite.Sprite):
     fame = None
     level_up = None
     units = None
+    location_tile_num = None
+    location_hex_num = None
     
-    def __init__(self):
+    def __init__(self, new_game_engine):
         super().__init__()
-        self.armor = 2
-        self.num_cards = 5
+        self.game_engine = new_game_engine
+        self.armor = PLAYER_ARMOR
+        self.hand_limit = PLAYER_MAX_HAND_SIZE
         self.num_red_crystals = 0
         self.num_blue_crystals = 0 
         self.num_white_crystals = 0
@@ -150,18 +153,70 @@ class Player(pygame.sprite.Sprite):
         self.num_white_tokens = 0
         self.num_green_tokens = 0
         self.deed_deck = []
-        self.hand = [self.num_cards]
+        self.deed_discard = []
+        self.trashed_cards = []
+        self.hand = [PLAYER_MAX_HAND_SIZE]
         self.card_assets = []
+        self.triggers = []
         self.skills = []
         self.influence = 0
         self.move = 0
         self.reputation = ReputationTracker() 
         self.fame = FameTracker()
-        self.level_up = False 
-        self.max_units = 1
-        self.units = [self.max_units]
+        self.max_units = PLAYER_MAX_UNITS
+        self.units = [PLAYER_MAX_UNITS]
+        self.location_tile_num = 0
+        self.location_hex_num = 6
+        
+    def end_turn(self):
+        self.num_red_tokens = 0
+        self.num_blue_tokens = 0
+        self.num_white_tokens = 0
+        self.num_green_tokens = 0
+        if self.game_engine.time_of_day == game.TIME_DAY:
+            self.game_engine.time_of_day = game.TIME_NIGHT
+            self.num_gold_crystals = 0
+        elif self.game_engine.time_of_day == game.TIME_NIGHT:
+            self.game_engine.time_of_day = game.TIME_DAY
+            self.num_black_crystals = 0
+        self.trashed_cards = []
+        #draw cards to hand limit
+        self.card_assets = []
+        #process triggers - add level_up trigger and add magical_glade.interact_start()
+        #reset skills
+        self.influence = 0
+        if self.level_up == True:
+            self.level_up
+            self.level_up = False
+        
+    def level_up(self):
+        if self.fame.level == 1 or self.fame.level == 2:
+            self.armor = PLAYER_ARMOR
+            self.hand_limit = PLAYER_MAX_HAND_SIZE
+            self.max_units = PLAYER_MAX_UNITS
+        elif self.fame.level == 3 or self.fame.level == 4:
+            self.armor = PLAYER_ARMOR + 1
+            self.hand_limit = PLAYER_MAX_HAND_SIZE
+            self.max_units = PLAYER_MAX_UNITS + 1
+        elif self.fame.level == 5 or self.fame.level == 6:
+            self.armor = PLAYER_ARMOR + 1
+            self.hand_limit = PLAYER_MAX_HAND_SIZE + 1
+            self.max_units = PLAYER_MAX_UNITS + 2
+        elif self.fame.level == 7 or self.fame.level == 8:
+            self.armor = PLAYER_ARMOR + 2
+            self.hand_limit = PLAYER_MAX_HAND_SIZE + 1
+            self.max_units = PLAYER_MAX_UNITS + 3
+        elif self.fame.level == 9 or self.fame.level == 10:
+            self.armor = PLAYER_ARMOR + 2
+            self.hand_limit = PLAYER_MAX_HAND_SIZE + 2
+            self.max_units = PLAYER_MAX_UNITS + 4        
+            
+        
 
 class Arythrea(Player):
-    def __init__(self):
-        super().__init__()
+    game_engine = None
+    
+    def __init__(self, new_game_engine):
+        super().__init__(new_game_engine)
         self.name = "Arythrea"
+        self.game_engine = new_game_engine
