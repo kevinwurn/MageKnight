@@ -34,18 +34,18 @@ LOCATION_ORCS = 24
 
 # Placeholder location
 class Location(object):
+    _game_engine = None
+    _current_player = None
     type = None
-    game_engine = None
     tile_board_zone = None
     hex_board_zone = None
-    current_player = None
     def __init__(self, new_game_engine, new_tile_board_zone, new_hex_board_zone):
         super().__init__()
-        self.game_engine = new_game_engine
+        self._game_engine = new_game_engine
         self.tile_board_zone = new_tile_board_zone
         self.hex_board_zone = new_hex_board_zone
-        if self.game_engine.current_player == player.ARYTHREA:
-            self.current_player = self.game_engine.arythrea
+        if self._game_engine.current_player == player.ARYTHREA:
+            self._current_player = self._game_engine.arythrea
         
 # Location Prototypes
 class LocationInteractable(Location):
@@ -69,35 +69,35 @@ class Location_Crystal_Mine_Green(LocationInteractable):
     def __init__(self, new_game_engine, new_tile_board_zone, new_hex_board_zone):
         super().__init__(new_game_engine, new_tile_board_zone, new_hex_board_zone)
     def interact(self):
-        self.current_player.num_green_crystals += 1
+        self._current_player.num_green_crystals += 1
         return True
 class Location_Crystal_Mine_Red(LocationInteractable):
     def __init__(self, new_game_engine, new_tile_board_zone, new_hex_board_zone):
         super().__init__(new_game_engine, new_tile_board_zone, new_hex_board_zone)
     def interact(self):
-        self.current_player.num_red_crystals += 1
+        self._current_player.num_red_crystals += 1
         return True
 class Location_Crystal_Mine_White(LocationInteractable):
     def __init__(self, new_game_engine, new_tile_board_zone, new_hex_board_zone):
         super().__init__(new_game_engine, new_tile_board_zone, new_hex_board_zone)
     def interact(self):
-        self.current_player.num_white_crystals += 1
+        self._current_player.num_white_crystals += 1
         return True
 class Location_Crystal_Mine_Blue(LocationInteractable):
     def __init__(self, new_game_engine, new_tile_board_zone, new_hex_board_zone):
         super().__init__(new_game_engine, new_tile_board_zone, new_hex_board_zone)
     def interact(self):
-        self.current_player.num_blue_crystals += 1
+        self._current_player.num_blue_crystals += 1
         return True
 class Location_Crystal_Mine_Blue_Green(LocationInteractable):
     def __init__(self, new_game_engine, new_tile_board_zone, new_hex_board_zone):
         super().__init__(new_game_engine, new_tile_board_zone, new_hex_board_zone)
     def interact(self, crystal):
         if crystal == game.CRYSTAL_GREEN:
-            self.current_player.num_green_crystals += 1
+            self._current_player.num_green_crystals += 1
             return True
         elif crystal == game.CRYSTAL_BLUE:
-            self.current_player.num_blue_crystals += 1
+            self._current_player.num_blue_crystals += 1
             return True
         return False
 class Location_Crystal_Mine_Red_White(LocationInteractable):
@@ -105,10 +105,10 @@ class Location_Crystal_Mine_Red_White(LocationInteractable):
         super().__init__(new_game_engine, new_tile_board_zone, new_hex_board_zone)
     def interact(self, crystal):
         if crystal == game.CRYSTAL_RED:
-            self.current_player.num_red_crystals += 1
+            self._current_player.num_red_crystals += 1
             return True
         elif crystal == game.CRYSTAL_WHITE:
-            self.current_player.num_white_crystals += 1
+            self._current_player.num_white_crystals += 1
             return True
         return False
 class Location_Crystal_Mine_Four_Colors(LocationInteractable):
@@ -116,43 +116,43 @@ class Location_Crystal_Mine_Four_Colors(LocationInteractable):
         super().__init__(new_game_engine, new_tile_board_zone, new_hex_board_zone)
     def interact(self, crystal):
         if crystal == game.CRYSTAL_RED:
-            self.current_player.num_red_crystals += 1
+            self._current_player.num_red_crystals += 1
             return True
         elif crystal == game.CRYSTAL_WHITE:
-            self.current_player.num_white_crystals += 1
+            self._current_player.num_white_crystals += 1
             return True
         elif crystal == game.CRYSTAL_GREEN:
-            self.current_player.num_green_crystals += 1
+            self._current_player.num_green_crystals += 1
             return True
         elif crystal == game.CRYSTAL_BLUE:
-            self.current_player.num_blue_crystals += 1
+            self._current_player.num_blue_crystals += 1
             return True
         return False
 class Location_Magical_Glade(LocationInteractable):
     def __init__(self, new_game_engine, new_tile_board_zone, new_hex_board_zone):
         super().__init__(new_game_engine, new_tile_board_zone, new_hex_board_zone)
     def interact_start_turn(self):
-        if self.current_player.location_tile == self.tile_board_zone and \
-            self.current_player.location_hex == self.hex_board_zone:
-            if self.game_engine.time_of_day == game.TIME_DAY:
-                self.current_player.num_gold_crystals += 1
+        if self._current_player.location_tile == self.tile_board_zone and \
+            self._current_player.location_hex == self.hex_board_zone:
+            if self._game_engine.time_of_day == game.TIME_DAY:
+                self._current_player.num_gold_crystals += 1
                 return True
-            elif self.game_engine.time_of_day == game.TIME_NIGHT:
-                self.current_player.num_black_tokens += 1
+            elif self._game_engine.time_of_day == game.TIME_NIGHT:
+                self._current_player.num_black_tokens += 1
                 return True
         return False
     # if destroy_from_hand, search hand and destroy 1 wound.
     # destroy 1 wound card from discard pile if can't find any in hand
     def interact(self, destroy_from_hand):
         if destroy_from_hand:
-            for card in self.current_player.hand:
+            for card in self._current_player.hand:
                 if type(card) == cards.Wound_Card:
-                    self.current_player.hand.remove(card)
+                    self._current_player.hand.remove(card)
                     self.trashed_cards.append(card)
                     return True
-        for card in self.current_player.deed_discard_pile:
+        for card in self._current_player.deed_discard_pile:
             if type(card) == cards.Wound_Card:
-                self.current_player.deed_discard_pile.remove(card)
+                self._current_player.deed_discard_pile.remove(card)
                 self.trashed_cards.append(card)
                 return True
         return False        
@@ -217,15 +217,16 @@ class Location_Orcs(LocationRampagingEnemy):
 
 
 class Locations(object):
+    _game_engine = None
     tile_board_zone = None
     location_collection = None
-    game_engine = None
+
      
     def __init__(self, new_game_engine, new_tile_board_zone):
         self.location_collection = []
         self.tile_board_zone = new_tile_board_zone
-        self.game_engine = new_game_engine
+        self._game_engine = new_game_engine
 
         # fill location collection with placeholder locations
         for i in range(7):
-            self.location_collection.append(Location(self.game_engine, self.tile_board_zone, i))
+            self.location_collection.append(Location(self._game_engine, self.tile_board_zone, i))

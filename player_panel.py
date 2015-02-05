@@ -14,28 +14,28 @@ PLAYER_PANEL_SPACE_BETWEEN_CARDS = 15
 
 
 class PlayerPanel(pygame.sprite.Sprite):
-    screen = None
-    game_engine = None
-    game_board = None
-    location_x = None
-    location_y = None
-    player_card = None
-    draw_pile = None
-    discard_pile = None
-    panel_compoents = None
-    player = None
-    x1_offset = None
-    y1_offset = None
-    x2_offset = None
-    y2_offset = None
+    _screen = None
+    _game_engine = None
+    _game_board = None
+    _location_x = None
+    _location_y = None
+    _player_card = None
+    _draw_pile = None
+    _discard_pile = None
+    _panel_compoents = None
+    _player = None
+    _x1_offset = None
+    _y1_offset = None
+    _x2_offset = None
+    _y2_offset = None
 
     def __init__(self, game_screen, new_game_engine, new_game_board):
         super().__init__()
-        self.screen = game_screen
-        self.game_engine = new_game_engine
-        self.game_board = new_game_board
-        if self.game_engine.current_player == player.ARYTHREA:
-            self.player = self.game_engine.arythrea
+        self._screen = game_screen
+        self._game_engine = new_game_engine
+        self._game_board = new_game_board
+        if self._game_engine.current_player == player.ARYTHREA:
+            self._player = self._game_engine.arythrea
 
         #build panel
         self.image = pygame.Surface([PLAYER_PANEL_WIDTH, PLAYER_PANEL_HEIGHT])
@@ -43,63 +43,60 @@ class PlayerPanel(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         
         #set x, y location of panel
-        self.location_x = main.GAME_SCREEN_WIDTH - PLAYER_PANEL_WIDTH
-        if self.game_board.board_type == board.BOARD_TYPE_WEDGE:
-            self.location_y = 0
-        elif self.game_board.board_type == board.BOARD_TYPE_OPEN:
-            self.location_y = main.GAME_SCREEN_HEIGHT - PLAYER_PANEL_HEIGHT
-        else:
-            self.location_y = 0
-        self.rect.x = self.location_x
-        self.rect.y = self.location_y
+        self._location_x = main.GAME_SCREEN_WIDTH - PLAYER_PANEL_WIDTH
+        self._location_y = 0
+        self.rect.x = self._location_x
+        self.rect.y = self._location_y
 
         #set grid up for player panel
-        self.x1_offset = self.location_x + PLAYER_PANEL_SPACE_BETWEEN_CARDS
-        self.y1_offset = self.location_y + PLAYER_PANEL_SPACE_BETWEEN_CARDS
-        self.x2_offset = self.location_x + PLAYER_PANEL_SPACE_BETWEEN_CARDS
-        self.y2_offset = self.location_y + 2*PLAYER_PANEL_SPACE_BETWEEN_CARDS + cards.CARD_HEIGHT
+        self._x1_offset = self._location_x + PLAYER_PANEL_SPACE_BETWEEN_CARDS
+        self._y1_offset = self._location_y + PLAYER_PANEL_SPACE_BETWEEN_CARDS
+        self._x2_offset = self._location_x + PLAYER_PANEL_SPACE_BETWEEN_CARDS
+        self._y2_offset = self._location_y + 2*PLAYER_PANEL_SPACE_BETWEEN_CARDS + cards.CARD_HEIGHT
 
 
         #panel_compoenents sprite group        
-        self.panel_compoents = pygame.sprite.Group()
+        self._panel_compoents = pygame.sprite.Group()
         #TOP ROW
         #build player card
-        self.player_card = cards.Card_Player()
-        self.add_card_to_top(self.player_card)
+        self._player_card = cards.Card_Player(self._game_engine)
+        self._add_card_to_top(self._player_card)
 
         #BOTTOM ROW
         #build discard pile
-        self.discard_pile = pygame.sprite.Sprite()
-        self.discard_pile.image = pygame.Surface([cards.CARD_WIDTH, cards.CARD_HEIGHT])
-        self.discard_pile.image.fill((0,0,0))
-        self.discard_pile.rect = self.discard_pile.image.get_rect()
-        self.add_card_to_bottom(self.discard_pile)
+        self._discard_pile = pygame.sprite.Sprite()
+        self._discard_pile.image = pygame.Surface([cards.CARD_WIDTH, cards.CARD_HEIGHT])
+        self._discard_pile.image.fill((0,0,0))
+        self._discard_pile.rect = self._discard_pile.image.get_rect()
+        self._add_card_to_bottom(self._discard_pile)
         
         #add cards from player's hand
-        for hand_card in self.player.hand:
-            self.add_card_to_bottom(hand_card)
+        for hand_card in self._player.hand:
+            self._add_card_to_bottom(hand_card)
 
         '''
         #build draw pile
-        self.draw_pile = cards.Card_Back()
-        self.draw_pile.rect.x = x_offset_for_cards  
-        self.draw_pile.rect.y = y_offset_for_cards 
-        self.panel_compoents.add(self.draw_pile)
+        self._draw_pile = cards.Card_Back()
+        self._draw_pile.rect.x = x_offset_for_cards  
+        self._draw_pile.rect.y = y_offset_for_cards 
+        self.panel_compoents.add(self._draw_pile)
         '''
 
             
-    def add_card_to_top(self, card):
-        card.rect.x = self.x1_offset
-        card.rect.y = self.y1_offset
-        self.panel_compoents.add(card)
-        self.x1_offset += PLAYER_PANEL_SPACE_BETWEEN_CARDS + cards.CARD_WIDTH
+    def _add_card_to_top(self, card):
+        card.rect.x = self._x1_offset
+        card.rect.y = self._y1_offset
+        self._panel_compoents.add(card)
+        self._game_engine.sprite_collection.append(card)
+        self._x1_offset += PLAYER_PANEL_SPACE_BETWEEN_CARDS + cards.CARD_WIDTH
         
-    def add_card_to_bottom(self, card):
-        card.rect.x = self.x2_offset
-        card.rect.y = self.y2_offset
-        self.panel_compoents.add(card)
-        self.x2_offset += PLAYER_PANEL_SPACE_BETWEEN_CARDS + cards.CARD_WIDTH
+    def _add_card_to_bottom(self, card):
+        card.rect.x = self._x2_offset
+        card.rect.y = self._y2_offset
+        self._panel_compoents.add(card)
+        self._game_engine.sprite_collection.append(card)
+        self._x2_offset += PLAYER_PANEL_SPACE_BETWEEN_CARDS + cards.CARD_WIDTH
     
     def paint(self):
-        pygame.draw.rect(self.screen, PLAYER_PANEL_COLOR, self.rect)
-        self.panel_compoents.draw(self.screen)
+        pygame.draw.rect(self._screen, PLAYER_PANEL_COLOR, self.rect)
+        self._panel_compoents.draw(self._screen)

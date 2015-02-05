@@ -1,46 +1,51 @@
 import os
 import uuid
 import pygame
+import game
 
 current_folder = os.path.dirname(os.path.abspath(__file__))
 CARD_WIDTH = 50
 CARD_HEIGHT = 75
 
 class Card(pygame.sprite.Sprite):
-    def __init__(self):
+    _game_engine = None
+    relative_path_filename = None
+    
+    def __init__(self, new_game_engine):
         super().__init__()
+        self._game_engine = new_game_engine
     #run after image has loaded
     def fit_within_board(self):
         self.image = pygame.transform.smoothscale(self.image, (CARD_WIDTH, CARD_HEIGHT))
 class DeedCard(Card):
-    game_engine = None
     uid = None
     
     def __init__(self, new_engine_game):
-        super().__init__()
-        self.game_engine = new_engine_game
+        super().__init__(new_engine_game)
         self.uid = uuid.uuid4()
     def discard(self):
         print("discard")
 class NonDeedCard(Card):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, new_engine_game):
+        super().__init__(new_engine_game)
 
 
 class Wound_Card(DeedCard):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, new_engine_game):
+        super().__init__(new_engine_game)
         print("Wound Card")
 class Card_Back(Card):
-    def __init__(self):
-        super().__init__()
-        self.image = pygame.image.load(current_folder +"/assets/images/cards/card_back.png").convert_alpha()
+    def __init__(self, new_engine_game):
+        super().__init__(new_engine_game)
+        self.relative_path_filename = "/assets/images/cards/card_back.png"
+        self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
         self.fit_within_board()
         self.rect = self.image.get_rect()
 class Card_Player(Card):
     # for now default to arythrea.  currently many ways to do this.  not sure the best way yet.
-    def __init__(self):
-        super().__init__()
-        self.image = pygame.image.load(current_folder +"/assets/images/cards/players/arythrea/card_arythrea.png").convert_alpha()
+    def __init__(self, new_engine_game):
+        super().__init__(new_engine_game)
+        self.relative_path_filename = "/assets/images/cards/players/arythrea/card_arythrea.png"
+        self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
         self.fit_within_board()
         self.rect = self.image.get_rect()    

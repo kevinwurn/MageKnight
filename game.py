@@ -1,10 +1,10 @@
+import pygame
 import player
 import advanced_actions
 import spells
 import artifacts
 import units
 
-GAME_TYPE_SOLO = 0
 TIME_DAY = 0
 TIME_NIGHT = 1
 
@@ -30,15 +30,12 @@ CRYSTAL_GOLD = 25
 CRYSTAL_BLACK = 26
 
 class Game(object):
-    game_type = None
     num_rounds = None
     time_of_day = None
     arythrea = None
     num_green_tiles = None
     num_brown_non_city_tiles = None
     num_brown_city_tiles = None
-    # totally cheating with this variable
-    num_board_zones = None
     city_levels = None
     battle_phase = None
     current_player = None
@@ -53,34 +50,35 @@ class Game(object):
     units_grey_discard = None
     units_gold_offer = None
     units_gold_discard = None
-    player_order = None
+    sprite_collection = None
+    tile_group = None
+    token_group = None
+    card_group = None
 
     def __init__(self, screen):
-        self.game_type = GAME_TYPE_SOLO
-        if self.game_type == GAME_TYPE_SOLO:
-            self.num_rounds = 6
-            self.num_green_tiles = 7
-            self.num_brown_non_city_tiles = 2
-            self.num_brown_city_tiles = 2
-            #cheating, hacky variable
-            self.num_board_zones = 0
-            self.city_levels = [None]*2
-            self.city_levels[0] = 5
-            self.city_levels[1] = 8
-            self.time_of_day = TIME_DAY
-            self.advanced_actions_offer = advanced_actions.AdvancedActions()
-            self.monestary_advanced_actions_offer = advanced_actions.AdvancedActions()
-            self.advanced_actions_discard = []
-            self.spells_offer = spells.Spells()
-            self.spells_discard = []
-            self.artifacts_offer = artifacts.Artifacts()
-            self.artifacts_discard = []
-            self.units_grey_offer = units.GreyUnits
-            self.units_grey_discard = []
-            self.units_gold_offer = units.GoldUnits
-            self.units_gold_discard = []
-            self.player_order = []
-        #self.game_type = 3
+        self.num_rounds = 6
+        self.num_green_tiles = 7
+        self.num_brown_non_city_tiles = 2
+        self.num_brown_city_tiles = 2
+        self.city_levels = [None]*2
+        self.city_levels[0] = 5
+        self.city_levels[1] = 8
+        self.time_of_day = TIME_DAY
+        self.advanced_actions_offer = advanced_actions.AdvancedActions()
+        self.monestary_advanced_actions_offer = advanced_actions.AdvancedActions()
+        self.advanced_actions_discard = []
+        self.spells_offer = spells.Spells()
+        self.spells_discard = []
+        self.artifacts_offer = artifacts.Artifacts()
+        self.artifacts_discard = []
+        self.units_grey_offer = units.GreyUnits
+        self.units_grey_discard = []
+        self.units_gold_offer = units.GoldUnits
+        self.units_gold_discard = []
+        self.sprite_collection = []
+        self.tile_group = pygame.sprite.Group()
+        self.token_group = pygame.sprite.Group()
+        self.card_group = pygame.sprite.Group
         
     def setup(self):
         # don't forget to choose tactics first

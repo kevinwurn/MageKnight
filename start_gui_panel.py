@@ -25,12 +25,12 @@ class StartGUIPanel(object):
         self._table.tr()
         button = gui.Button("Start Solo Game")
         self._table.td(button)
-        button.connect(gui.CLICK, self.commit_values)
+        button.connect(gui.CLICK, self._commit_values)
     
-    def launch(self):
-        self._app.run(self._table, self._screen)
-    
-    def commit_values(self):
+    def _commit_values(self):
         if self._select.value:
             self.player = self._select.value
             self._app.quit()
+    
+    def launch(self):
+        self._app.run(self._table, self._screen)

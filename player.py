@@ -5,6 +5,7 @@ import cards
 
 # constats for players
 ARYTHREA = 40
+DUMMY = 45
 PLAYER_MAX_HAND_SIZE = 5
 PLAYER_ARMOR = 2
 PLAYER_MAX_UNITS = 1
@@ -42,29 +43,29 @@ class CardAsset(object):
 
 class ReputationTracker(object):
     reputation = None
-    tracker = None
+    _tracker = None
     @property
     def influence_adjustment(self):
-        return self.tracker[self.location]
+        return self._tracker[self.location]
     
     def __init__(self):
         self.reputation = 7
-        self.tracker = [None]*REPUTATION_TRACKER_END
-        self.tracker[0] = "X"
-        self.tracker[1] = -5
-        self.tracker[2] = -3
-        self.tracker[3] = -2
-        self.tracker[4] = -1
-        self.tracker[5] = -1
-        self.tracker[6] = 0
-        self.tracker[7] = 0 
-        self.tracker[8] = 0
-        self.tracker[9] = 1
-        self.tracker[10] = 1 
-        self.tracker[11] = 2
-        self.tracker[12] = 2
-        self.tracker[13] = 3
-        self.tracker[14] = 5
+        self._tracker = [None]*REPUTATION_TRACKER_END
+        self._tracker[0] = "X"
+        self._tracker[1] = -5
+        self._tracker[2] = -3
+        self._tracker[3] = -2
+        self._tracker[4] = -1
+        self._tracker[5] = -1
+        self._tracker[6] = 0
+        self._tracker[7] = 0 
+        self._tracker[8] = 0
+        self._tracker[9] = 1
+        self._tracker[10] = 1 
+        self._tracker[11] = 2
+        self._tracker[12] = 2
+        self._tracker[13] = 3
+        self._tracker[14] = 5
     def increase_reputation(self, points):
         if self.location + points < REPUTATION_TRACKER_END:
             self.reputation += points
@@ -74,34 +75,34 @@ class ReputationTracker(object):
 
 class FameTracker(object):
     fame = None
-    tracker = None
+    _tracker = None
     @property
     def level(self):
-        return self.tracker[self.fame]
+        return self._tracker[self.fame]
     
     def __init__(self):
         self.fame = 0
-        self.tracker = [None]*FAME_TRACKER_END
+        self._tracker = [None]*FAME_TRACKER_END
         for i in range(2):
-            self.tracker[i] = 1
+            self._tracker[i] = 1
         for i in range(3, 7):
-            self.tracker[i] = 2
+            self._tracker[i] = 2
         for i in range(8, 14):
-            self.tracker[i] = 3
+            self._tracker[i] = 3
         for i in range(15, 23):
-            self.tracker[i] = 4
+            self._tracker[i] = 4
         for i in range(24, 34):
-            self.tracker[i] = 5
+            self._tracker[i] = 5
         for i in range(35, 47):
-            self.tracker[i] = 6
+            self._tracker[i] = 6
         for i in range(48, 62):
-            self.tracker[i] = 7
+            self._tracker[i] = 7
         for i in range(63, 79):
-            self.tracker[i] = 8
+            self._tracker[i] = 8
         for i in range(80, 98):
-            self.tracker[i] = 9
+            self._tracker[i] = 9
         for i in range(99, 119):
-            self.tracker[i] = 10
+            self._tracker[i] = 10
     def increase_fame(self, points):
         if self.fame + points < FAME_TRACKER_END:
             self.fame += points
@@ -110,7 +111,7 @@ class FameTracker(object):
             self.reputation -= points
 
 class Player(pygame.sprite.Sprite):
-    game_engine = None
+    _game_engine = None
     name = None
     armor = None
     hand_limit = None
@@ -145,7 +146,7 @@ class Player(pygame.sprite.Sprite):
     
     def __init__(self, new_game_engine):
         super().__init__()
-        self.game_engine = new_game_engine
+        self._game_engine = new_game_engine
         self.armor = PLAYER_ARMOR
         self.hand_limit = PLAYER_MAX_HAND_SIZE
         self.num_red_crystals = 0
@@ -190,11 +191,11 @@ class Player(pygame.sprite.Sprite):
         self.num_blue_tokens = 0
         self.num_white_tokens = 0
         self.num_green_tokens = 0
-        if self.game_engine.time_of_day == game.TIME_DAY:
-            self.game_engine.time_of_day = game.TIME_NIGHT
+        if self._game_engine.time_of_day == game.TIME_DAY:
+            self._game_engine.time_of_day = game.TIME_NIGHT
             self.num_gold_crystals = 0
-        elif self.game_engine.time_of_day == game.TIME_NIGHT:
-            self.game_engine.time_of_day = game.TIME_DAY
+        elif self._game_engine.time_of_day == game.TIME_NIGHT:
+            self._game_engine.time_of_day = game.TIME_DAY
             self.num_black_crystals = 0
         self.trashed_cards = []
         #draw cards to hand limit
@@ -253,6 +254,6 @@ class Arythrea(Player):
     def __init__(self, new_game_engine):
         super().__init__(new_game_engine)
         self.name = "Arythrea"
-        list_of_cards = actions.Actions(self.game_engine).actions_collection
+        list_of_cards = actions.Actions(self._game_engine).actions_collection
         for card in list_of_cards:
             self.deed_deck.append(card)

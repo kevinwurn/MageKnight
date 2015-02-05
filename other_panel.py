@@ -8,19 +8,15 @@ OTHER_PANEL_HEIGHT = 250
 OTHER_PANEL_LOCATION_Y_FOR_WEDGE = 220
 
 class OtherPanel(pygame.sprite.Sprite):
-    screen = None
-    game_engine = None
-    game_board = None
-    location_x = None
-    location_y = None
-    player_card = None
-    panel_compoents = None
+    _screen = None
+    _game_engine = None
+    _game_board = None
 
     def __init__(self, game_screen, new_game_engine, new_game_board):
         super().__init__()
-        self.screen = game_screen
-        self.game_engine = new_game_engine
-        self.game_board = new_game_board
+        self._screen = game_screen
+        self._game_engine = new_game_engine
+        self._game_board = new_game_board
 
         #build panel
         self.image = pygame.Surface([OTHER_PANEL_WIDTH, OTHER_PANEL_HEIGHT])
@@ -28,15 +24,8 @@ class OtherPanel(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         
         #set x, y location of panel
-        self.location_x = main.GAME_SCREEN_WIDTH - OTHER_PANEL_WIDTH
-        if self.game_board.board_type == board.BOARD_TYPE_WEDGE:
-            self.location_y = OTHER_PANEL_LOCATION_Y_FOR_WEDGE
-        elif self.game_board.board_type == board.BOARD_TYPE_OPEN:
-            self.location_y = 0
-        else:
-            self.location_y = 0
-        self.rect.x = self.location_x
-        self.rect.y = self.location_y
+        self.rect.x = main.GAME_SCREEN_WIDTH - OTHER_PANEL_WIDTH
+        self.rect.y = OTHER_PANEL_LOCATION_Y_FOR_WEDGE
 
     def paint(self):
-        pygame.draw.rect(self.screen, OTHER_PANEL_COLOR, self.rect)
+        pygame.draw.rect(self._screen, OTHER_PANEL_COLOR, self.rect)
