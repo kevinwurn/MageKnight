@@ -60,6 +60,7 @@ class PlayerPanel(pygame.sprite.Sprite):
         #TOP ROW
         #build player card
         self._player_card = cards.Card_Player(self._game_engine)
+        self._player_card.load()
         self._add_card_to_top(self._player_card)
 
         #BOTTOM ROW

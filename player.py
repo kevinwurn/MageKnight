@@ -247,6 +247,7 @@ class Player(pygame.sprite.Sprite):
     def draw(self):
         if self.deed_deck:
             card = self.deed_deck.pop()
+            card.load()
             return card
         return False
 

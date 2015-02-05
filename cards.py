@@ -37,6 +37,7 @@ class Wound_Card(DeedCard):
 class Card_Back(Card):
     def __init__(self, new_engine_game):
         super().__init__(new_engine_game)
+    def load(self):
         self.relative_path_filename = "/assets/images/cards/card_back.png"
         self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
         self.fit_within_board()
@@ -45,6 +46,7 @@ class Card_Player(Card):
     # for now default to arythrea.  currently many ways to do this.  not sure the best way yet.
     def __init__(self, new_engine_game):
         super().__init__(new_engine_game)
+    def load(self):
         self.relative_path_filename = "/assets/images/cards/players/arythrea/card_arythrea.png"
         self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
         self.fit_within_board()

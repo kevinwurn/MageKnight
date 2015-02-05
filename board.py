@@ -94,8 +94,13 @@ class Board(object):
                         if new_tile == None:
                             print("No more tiles left")
                         else:
-                            #place new tile in tile collection to be placed on board when building board
+                            # first load the image - to be drawn once and only once
+                            # place new tile in tile collection to be placed on board when building board
+                            # and place in game engine's sprite collection and tile group to be drawn - to be magnified
+                            new_tile.load()
                             self._tiles.tile_collection[mouseup_location[0]] = new_tile
+                            self._game_engine.sprite_collection.append(new_tile)
+                            self._game_engine.tile_group.add(new_tile)
             else:
                 print("Tile #:" +str(mousedown_location[0])+ " | Hex #:" + str(mousedown_location[1]))
                 if isinstance(self._tiles.tile_collection[mousedown_location[0]], tiles.TileNonPlaceholder):
@@ -136,7 +141,7 @@ class Board(object):
         #level 0
         x0 = main.GAME_SCREEN_WIDTH/5
         y0 = 2*BOARD_HEX_WIDTH
-        self.__build_tile_holder(0, BOARD_HEX_BORDER_COLOR, x0, y0)
+        self.__build_tile_holder(0, BOARD_COLOR, x0, y0)
     
         board_zone_num = 0
         first_time_num_for_current_level = 0
@@ -163,8 +168,6 @@ class Board(object):
         for i in range(len(self._tiles.tile_collection)):
             if isinstance(self._tiles.tile_collection[i], tiles.TileNonPlaceholder):
                 self._tiles.tile_collection[i].set_location(eval("x" + str(i)), eval("y" + str(i)))
-                self._game_engine.tile_group.add(self._tiles.tile_collection[i])
-#        self._tiles.tile_group.draw(self._board_screen)
         self._game_engine.tile_group.draw(self._board_screen)
         
         # then paint tokens

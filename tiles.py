@@ -98,6 +98,7 @@ class Tile_Start_Wedge(TileNonPlaceholder):
         self.hexes.hex_collection[4] = hexes.Hex_Forest(4)
         self.hexes.hex_collection[5] = hexes.Hex_Plain(5)
         self.hexes.hex_collection[6] = hexes.Hex_Plain(6)
+    def load(self):
         self.relative_path_filename = "/assets/images/tiles/tile_start_wedge.png"
         self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
         self.fit_within_board()
@@ -113,6 +114,7 @@ class Tile_Green_1(TileNonPlaceholder):
         self.hexes.hex_collection[4] = hexes.Hex_Lake(4)
         self.hexes.hex_collection[5] = hexes.Hex_Plain(5)
         self.hexes.hex_collection[6] = hexes.Hex_Forest(6)
+    def load(self):
         self.relative_path_filename = "/assets/images/tiles/tile_green_1.png"
         self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
         self.fit_within_board()
@@ -128,6 +130,7 @@ class Tile_Green_2(TileNonPlaceholder):
         self.hexes.hex_collection[4] = hexes.Hex_Forest(4)
         self.hexes.hex_collection[5] = hexes.Hex_Plain(5)
         self.hexes.hex_collection[6] = hexes.Hex_Hill(6)
+    def load(self):
         self.relative_path_filename = "/assets/images/tiles/tile_green_2.png"
         self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
         self.fit_within_board()
@@ -143,6 +146,7 @@ class Tile_Green_3(TileNonPlaceholder):
         self.hexes.hex_collection[4] = hexes.Hex_Hill(4)
         self.hexes.hex_collection[5] = hexes.Hex_Hill(5)
         self.hexes.hex_collection[6] = hexes.Hex_Forest(6)
+    def load(self):
         self.relative_path_filename = "/assets/images/tiles/tile_green_3.png"
         self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
         self.fit_within_board()
@@ -158,6 +162,7 @@ class Tile_Green_4(TileNonPlaceholder):
         self.hexes.hex_collection[4] = hexes.Hex_Desert(4)
         self.hexes.hex_collection[5] = hexes.Hex_Mountain(5)
         self.hexes.hex_collection[6] = hexes.Hex_Desert(6)
+    def load(self):
         self.relative_path_filename = "/assets/images/tiles/tile_green_4.png"
         self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
         self.fit_within_board()
@@ -173,6 +178,7 @@ class Tile_Green_5(TileNonPlaceholder):
         self.hexes.hex_collection[4] = hexes.Hex_Plain(4)
         self.hexes.hex_collection[5] = hexes.Hex_Plain(5)
         self.hexes.hex_collection[6] = hexes.Hex_Lake(6)
+    def load(self):
         self.relative_path_filename = "/assets/images/tiles/tile_green_5.png"
         self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
         self.fit_within_board()
@@ -188,6 +194,7 @@ class Tile_Green_6(TileNonPlaceholder):
         self.hexes.hex_collection[4] = hexes.Hex_Forest(4)
         self.hexes.hex_collection[5] = hexes.Hex_Plain(5)
         self.hexes.hex_collection[6] = hexes.Hex_Hill(6)
+    def load(self):
         self.relative_path_filename = "/assets/images/tiles/tile_green_6.png"
         self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
         self.fit_within_board()
@@ -203,6 +210,7 @@ class Tile_Green_7(TileNonPlaceholder):
         self.hexes.hex_collection[4] = hexes.Hex_Forest(4)
         self.hexes.hex_collection[5] = hexes.Hex_Forest(5)
         self.hexes.hex_collection[6] = hexes.Hex_Swamp(6)
+    def load(self):
         self.relative_path_filename = "/assets/images/tiles/tile_green_7.png"
         self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
         self.fit_within_board()
@@ -218,6 +226,7 @@ class Tile_Green_8(TileNonPlaceholder):
         self.hexes.hex_collection[4] = hexes.Hex_Forest(4)
         self.hexes.hex_collection[5] = hexes.Hex_Plain(5)
         self.hexes.hex_collection[6] = hexes.Hex_Swamp(6)
+    def load(self):
         self.relative_path_filename = "/assets/images/tiles/tile_green_8.png"
         self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
         self.fit_within_board()
@@ -233,6 +242,7 @@ class Tile_Green_9(TileNonPlaceholder):
         self.hexes.hex_collection[4] = hexes.Hex_Mountain(4)
         self.hexes.hex_collection[5] = hexes.Hex_Wasteland(5)
         self.hexes.hex_collection[6] = hexes.Hex_Mountain(6)
+    def load(self):
         self.relative_path_filename = "/assets/images/tiles/tile_green_9.png"
         self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
         self.fit_within_board()
@@ -248,6 +258,7 @@ class Tile_Green_10(TileNonPlaceholder):
         self.hexes.hex_collection[4] = hexes.Hex_Forest(4)
         self.hexes.hex_collection[5] = hexes.Hex_Plain(5)
         self.hexes.hex_collection[6] = hexes.Hex_Mountain(6)
+    def load(self):
         self.relative_path_filename = "/assets/images/tiles/tile_green_10.png"
         self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
         self.fit_within_board()
@@ -263,6 +274,7 @@ class Tile_Green_11(TileNonPlaceholder):
         self.hexes.hex_collection[4] = hexes.Hex_Lake(4)
         self.hexes.hex_collection[5] = hexes.Hex_Lake(5)
         self.hexes.hex_collection[6] = hexes.Hex_Plain(6)
+    def load(self):
         self.relative_path_filename = "/assets/images/tiles/tile_green_11.png"
         self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
         self.fit_within_board()
@@ -281,6 +293,7 @@ class Tile_Green_12(TileNonPlaceholder):
         self.walls.add_wall(1, 6)
         self.walls.add_wall(2, 6)
         self.walls.add_wall(5, 6)
+    def load(self):
         self.relative_path_filename = "/assets/images/tiles/tile_green_12.png"
         self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
         self.fit_within_board()
@@ -298,6 +311,7 @@ class Tile_Green_13(TileNonPlaceholder):
         self.hexes.hex_collection[6] = hexes.Hex_Forest(6)
         self.walls.add_wall(3, 4)
         self.walls.add_wall(4, 6)
+    def load(self):
         self.relative_path_filename = "/assets/images/tiles/tile_green_13.png"
         self.image = pygame.image.load(current_folder +self.relative_path_filename).convert_alpha()
         self.fit_within_board()
@@ -314,6 +328,7 @@ class Tile_Green_14(TileNonPlaceholder):
         self.hexes.hex_collection[5] = hexes.Hex_Wasteland(5)
         self.hexes.hex_collection[6] = hexes.Hex_Plain(6)
         self.walls.add_wall(4, 6)
+    def load(self):
         self.relative_path_filename = "/assets/images/tiles/tile_green_14.png"
         self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
         self.fit_within_board()
@@ -329,6 +344,7 @@ class Tile_Brown_1(TileNonPlaceholder):
         self.hexes.hex_collection[4] = hexes.Hex_Desert(4)
         self.hexes.hex_collection[5] = hexes.Hex_Desert(5)
         self.hexes.hex_collection[6] = hexes.Hex_Desert(6)
+    def load(self):
         self.relative_path_filename = "/assets/images/tiles/tile_brown_1.png"
         self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
         self.fit_within_board()
@@ -344,6 +360,7 @@ class Tile_Brown_2(TileNonPlaceholder):
         self.hexes.hex_collection[4] = hexes.Hex_Swamp(4)
         self.hexes.hex_collection[5] = hexes.Hex_Hill(5)
         self.hexes.hex_collection[6] = hexes.Hex_Lake(6)
+    def load(self):
         self.relative_path_filename = "/assets/images/tiles/tile_brown_2.png"
         self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
         self.fit_within_board()
@@ -359,6 +376,7 @@ class Tile_Brown_3(TileNonPlaceholder):
         self.hexes.hex_collection[4] = hexes.Hex_Wasteland(4)
         self.hexes.hex_collection[5] = hexes.Hex_Hill(5)
         self.hexes.hex_collection[6] = hexes.Hex_Wasteland(6)
+    def load(self):
         self.relative_path_filename = "/assets/images/tiles/tile_brown_3.png"
         self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
         self.fit_within_board()
@@ -374,6 +392,7 @@ class Tile_Brown_4(TileNonPlaceholder):
         self.hexes.hex_collection[4] = hexes.Hex_Hill(4)
         self.hexes.hex_collection[5] = hexes.Hex_Wasteland(5)
         self.hexes.hex_collection[6] = hexes.Hex_Mountain(6)
+    def load(self):
         self.relative_path_filename = "/assets/images/tiles/tile_brown_4.png"
         self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
         self.fit_within_board()
@@ -389,6 +408,7 @@ class Tile_Brown_5_Green_City(TileNonPlaceholder):
         self.hexes.hex_collection[4] = hexes.Hex_Swamp(4)
         self.hexes.hex_collection[5] = hexes.Hex_Swamp(5)
         self.hexes.hex_collection[6] = hexes.Hex_City(6)
+    def load(self):
         self.relative_path_filename = "/assets/images/tiles/tile_brown_5_green_city.png"
         self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
         self.fit_within_board()
@@ -404,6 +424,7 @@ class Tile_Brown_6_Blue_City(TileNonPlaceholder):
         self.hexes.hex_collection[4] = hexes.Hex_Plain(4)
         self.hexes.hex_collection[5] = hexes.Hex_Lake(5)
         self.hexes.hex_collection[6] = hexes.Hex_City(6)
+    def load(self):
         self.relative_path_filename = "/assets/images/tiles/tile_brown_6_blue_city.png"
         self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
         self.fit_within_board()
@@ -419,6 +440,7 @@ class Tile_Brown_7_White_City(TileNonPlaceholder):
         self.hexes.hex_collection[4] = hexes.Hex_Plain(4)
         self.hexes.hex_collection[5] = hexes.Hex_Forest(5)
         self.hexes.hex_collection[6] = hexes.Hex_City(6)
+    def load(self):
         self.relative_path_filename = "/assets/images/tiles/tile_brown_7_white_city.png"
         self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
         self.fit_within_board()
@@ -434,6 +456,7 @@ class Tile_Brown_8_Red_City(TileNonPlaceholder):
         self.hexes.hex_collection[4] = hexes.Hex_Hill(4)
         self.hexes.hex_collection[5] = hexes.Hex_Desert(5)
         self.hexes.hex_collection[6] = hexes.Hex_City(6)
+    def load(self):
         self.relative_path_filename = "/assets/images/tiles/tile_brown_8_red_city.png"
         self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
         self.fit_within_board()
@@ -454,6 +477,7 @@ class Tile_Brown_9(TileNonPlaceholder):
         self.walls.add_wall(1, 6)
         self.walls.add_wall(2, 6)
         self.walls.add_wall(2, 3)
+    def load(self):
         self.relative_path_filename = "/assets/images/tiles/tile_brown_9.png"
         self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
         self.fit_within_board()
@@ -469,6 +493,7 @@ class Tile_Brown_10(TileNonPlaceholder):
         self.hexes.hex_collection[4] = hexes.Hex_Lake(4)
         self.hexes.hex_collection[5] = hexes.Hex_Forest(5)
         self.hexes.hex_collection[6] = hexes.Hex_Swamp(6)
+    def load(self):
         self.relative_path_filename = "/assets/images/tiles/tile_brown_10.png"
         self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
         self.fit_within_board()
@@ -491,8 +516,10 @@ class Tiles(object):
 
         # build starting tile
         tile = Tile_Start_Wedge(self._game_engine)
+        tile.load()
         self.tile_collection.append(tile)
         self._game_engine.sprite_collection.append(tile)
+        self._game_engine.tile_group.add(tile)
             
         # fill tile collection with placeholder tiles
         for i in range(self.max_size_tile_collection):
@@ -536,15 +563,12 @@ class Tiles(object):
         for i in range(self._game_engine.num_green_tiles):
             tile = green_tiles_total.pop()
             self.green_deck.append(tile)
-            self._game_engine.sprite_collection.append(tile)
         for i in range(self._game_engine.num_brown_non_city_tiles):
             tile = brown_tiles_non_city_total.pop()
             self.brown_deck.append(tile)
-            self._game_engine.sprite_collection.append(tile)
         for i in range(self._game_engine.num_brown_city_tiles):
             tile = brown_tiles_city_total.pop()
             self.brown_deck.append(tile)
-            self._game_engine.sprite_collection.append(tile)
         #shuffle brown deck one more time
         random.shuffle(self.brown_deck)
 
