@@ -1,7 +1,7 @@
 from pgu import gui
 import player
 
-class StartGUIPanel(object):
+class GUIStartPanel(object):
     _screen = None
     _app = None
     _table = None

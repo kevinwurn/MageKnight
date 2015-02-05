@@ -3,7 +3,7 @@ import pygame
 import game
 import board
 import tiles
-import start_gui_panel
+import gui_start_panel
 import player
 import player_panel
 import other_panel
@@ -20,8 +20,8 @@ def main():
     game_screen = pygame.display.set_mode((GAME_SCREEN_WIDTH, GAME_SCREEN_HEIGHT))
     pygame.display.set_caption("Mage Knight")
     game_engine = game.Game(game_screen)
-    start_screen = start_gui_panel.StartGUIPanel(game_screen)
-    #start_screen.launch()
+    start_screen = gui_start_panel.GUIStartPanel(game_screen)
+    start_screen.launch()
     if start_screen.player == player.ARYTHREA:
         game_engine.current_player = player.ARYTHREA
     else:
