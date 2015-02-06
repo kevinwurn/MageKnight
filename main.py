@@ -2,12 +2,11 @@ import os
 import pygame
 import game
 import board
-import tiles
 import gui_start_panel
 import player
 import panel_player
 import panel_other
-from warnings import catch_warnings
+import panel_offers
 
 GAME_SCREEN_WIDTH = 1024
 GAME_SCREEN_HEIGHT = 768
@@ -21,7 +20,7 @@ def main():
     pygame.display.set_caption("Mage Knight")
     game_engine = game.Game(game_screen)
     start_screen = gui_start_panel.GUIStartPanel(game_screen)
-    #start_screen.launch()
+    start_screen.launch()
     if start_screen.player == player.ARYTHREA:
         game_engine.current_player = player.ARYTHREA
     else:
@@ -33,11 +32,11 @@ def main():
     game_board = board.Board(game_screen, game_engine)
     player_board = panel_player.PanelPlayer(game_screen, game_engine, game_board)
     other_board = panel_other.PanelOther(game_screen, game_engine, game_board)
+    offers_board = panel_offers.PanelOffers(game_screen, game_engine, game_board)
 
     done = False
     clock = pygame.time.Clock()
     temp_mousedown_coordinates = None
-    current_folder = current_folder = os.path.dirname(os.path.abspath(__file__))
     magnify_sprites = []
     magnify_sprite = pygame.sprite.GroupSingle()
     magnify_image_original_width = 0
@@ -63,7 +62,7 @@ def main():
                         magnify_image_original_height = magnify_sprites[-1].rect.height
                         can_magnify = True
                         try:
-                            magnify_sprites[-1].image = pygame.image.load(current_folder + magnify_sprites[-1].relative_path_filename).convert_alpha()
+                            magnify_sprites[-1].image = pygame.image.load(magnify_sprites[-1].relative_path_filename).convert_alpha()
                         except AttributeError:
                             magnify_sprites = []
                             can_magnify = False
@@ -73,7 +72,7 @@ def main():
                             magnify_sprite.add(magnify_sprites[-1])
             elif event.type == pygame.KEYUP:
                 if magnify_sprites:
-                        magnify_sprites[-1].image = pygame.image.load(current_folder + magnify_sprites[-1].relative_path_filename).convert_alpha()
+                        magnify_sprites[-1].image = pygame.image.load(magnify_sprites[-1].relative_path_filename).convert_alpha()
                         magnify_sprites[-1].image = pygame.transform.smoothscale(magnify_sprites[-1].image, (magnify_image_original_width, magnify_image_original_height))
                         magnify_sprite.add(magnify_sprites[-1])
                         magnify_sprites = []
@@ -82,6 +81,7 @@ def main():
         game_board.build()
         player_board.paint()
         other_board.paint()
+        offers_board.paint()
         magnify_sprite.draw(game_screen) 
         pygame.display.flip()
         clock.tick(60)

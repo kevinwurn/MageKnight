@@ -1,4 +1,3 @@
-import os
 import pygame
 import main
 import cards
@@ -6,7 +5,6 @@ import player
 import gui_choose_tactics
 
 
-current_folder = os.path.dirname(os.path.abspath(__file__))
 PANEL_PLAYER_COLOR = (160, 160, 160)
 PANEL_PLAYER_WIDTH = 600
 PANEL_PLAYER_HEIGHT = 200
@@ -68,7 +66,7 @@ class PanelPlayer(pygame.sprite.Sprite):
         self._btn_start_round.image = pygame.Surface([cards.CARD_WIDTH, cards.CARD_HEIGHT])
         self._btn_start_round.image.fill((0,0,0))
         self._btn_start_round.rect = self._btn_start_round.image.get_rect()
-        start_round_font = pygame.font.Font(None, 24)
+        start_round_font = pygame.font.Font("fonts/arial.ttf", 12)
         start_round_text_top = start_round_font.render("Start", 1, (255, 255, 255))
         start_round_text_bottom = start_round_font.render("Round", 1, (255, 255, 255))
         start_round_textpos_top = start_round_text_top.get_rect()

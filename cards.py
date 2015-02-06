@@ -1,8 +1,6 @@
-import os
 import uuid
 import pygame
 
-current_folder = os.path.dirname(os.path.abspath(__file__))
 CARD_WIDTH = 50
 CARD_HEIGHT = 75
 
@@ -37,8 +35,8 @@ class Card_Back(Card):
     def __init__(self, new_engine_game):
         super().__init__(new_engine_game)
     def load(self):
-        self.relative_path_filename = "/assets/images/cards/card_back.png"
-        self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
+        self.relative_path_filename = "assets/images/cards/card_back.png"
+        self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self.fit_within_board()
         self.rect = self.image.get_rect()
 class Card_Player(Card):
@@ -46,7 +44,7 @@ class Card_Player(Card):
     def __init__(self, new_engine_game):
         super().__init__(new_engine_game)
     def load(self):
-        self.relative_path_filename = "/assets/images/cards/players/arythrea/card_arythrea.png"
-        self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
+        self.relative_path_filename = "assets/images/cards/players/arythrea/card_arythrea.png"
+        self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self.fit_within_board()
         self.rect = self.image.get_rect()    

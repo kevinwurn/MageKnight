@@ -1,7 +1,6 @@
 import math
 import pygame
 import main
-import game
 import board
 import tiles
 import hexes

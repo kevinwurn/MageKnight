@@ -1,11 +1,8 @@
-import os
 import random
 import pygame
 import cards
 import game
 import player
-
-current_folder = os.path.dirname(os.path.abspath(__file__))
 
 class Action(cards.DeedCard):
     def __init__(self, new_game_engine):
@@ -43,8 +40,8 @@ class Card_Arythrea_Battle_Versatility(Action):
         super().__init__(new_game_engine)
         self.name = "Battle Versatility"
     def load(self):
-        self.relative_path_filename = "/assets/images/cards/players/arythrea/card_battle_versatility.png"
-        self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
+        self.relative_path_filename = "assets/images/cards/players/arythrea/card_battle_versatility.png"
+        self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self.fit_within_board()
         self.rect = self.image.get_rect()
 
@@ -54,8 +51,8 @@ class Card_Arythrea_Rage(Action):
         super().__init__(new_game_engine)
         self.name = "Rage"
     def load(self):
-        self.relative_path_filename = "/assets/images/cards/players/arythrea/card_rage.png"
-        self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
+        self.relative_path_filename = "assets/images/cards/players/arythrea/card_rage.png"
+        self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self.fit_within_board()
         self.rect = self.image.get_rect()
     def play(self):
@@ -96,8 +93,8 @@ class Card_Arythrea_Determination(Action):
         super().__init__(new_game_engine)
         self.name = "Determination"
     def load(self):
-        self.relative_path_filename = "/assets/images/cards/players/arythrea/card_determination.png"
-        self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
+        self.relative_path_filename = "assets/images/cards/players/arythrea/card_determination.png"
+        self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self.fit_within_board()
         self.rect = self.image.get_rect()
 
@@ -106,8 +103,8 @@ class Card_Arythrea_Swiftness(Action):
         super().__init__(new_game_engine)
         self.name = "Swiftness"
     def load(self):
-        self.relative_path_filename = "/assets/images/cards/players/arythrea/card_swiftness.png"
-        self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
+        self.relative_path_filename = "assets/images/cards/players/arythrea/card_swiftness.png"
+        self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self.fit_within_board()
         self.rect = self.image.get_rect()
 
@@ -116,8 +113,8 @@ class Card_Arythrea_March(Action):
         super().__init__(new_game_engine)
         self.name = "March"
     def load(self):
-        self.relative_path_filename = "/assets/images/cards/players/arythrea/card_march.png"
-        self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
+        self.relative_path_filename = "assets/images/cards/players/arythrea/card_march.png"
+        self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self.fit_within_board()
         self.rect = self.image.get_rect()
         
@@ -126,8 +123,8 @@ class Card_Arythrea_Stamina(Action):
         super().__init__(new_game_engine)
         self.name = "Stamina"
     def load(self):
-        self.relative_path_filename = "/assets/images/cards/players/arythrea/card_stamina.png"
-        self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
+        self.relative_path_filename = "assets/images/cards/players/arythrea/card_stamina.png"
+        self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self.fit_within_board()
         self.rect = self.image.get_rect()
         
@@ -136,8 +133,8 @@ class Card_Arythrea_Tranquility(Action):
         super().__init__(new_game_engine)
         self.name = "Tranquility"
     def load(self):
-        self.relative_path_filename = "/assets/images/cards/players/arythrea/card_tranquility.png"
-        self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
+        self.relative_path_filename = "assets/images/cards/players/arythrea/card_tranquility.png"
+        self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self.fit_within_board()
         self.rect = self.image.get_rect()
         
@@ -146,8 +143,8 @@ class Card_Arythrea_Promise(Action):
         super().__init__(new_game_engine)
         self.name = "Promise"
     def load(self):
-        self.relative_path_filename = "/assets/images/cards/players/arythrea/card_promise.png"
-        self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
+        self.relative_path_filename = "assets/images/cards/players/arythrea/card_promise.png"
+        self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self.fit_within_board()
         self.rect = self.image.get_rect()
         
@@ -156,8 +153,8 @@ class Card_Arythrea_Threaten(Action):
         super().__init__(new_game_engine)
         self.name = "Threaten"
     def load(self):
-        self.relative_path_filename = "/assets/images/cards/players/arythrea/card_threaten.png"
-        self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
+        self.relative_path_filename = "assets/images/cards/players/arythrea/card_threaten.png"
+        self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self.fit_within_board()
         self.rect = self.image.get_rect()
         
@@ -166,8 +163,8 @@ class Card_Arythrea_Crystalize(Action):
         super().__init__(new_game_engine)
         self.name = "Crystalize"
     def load(self):
-        self.relative_path_filename = "/assets/images/cards/players/arythrea/card_crystalize.png"
-        self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
+        self.relative_path_filename = "assets/images/cards/players/arythrea/card_crystalize.png"
+        self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self.fit_within_board()
         self.rect = self.image.get_rect()
 
@@ -176,8 +173,8 @@ class Card_Arythrea_Mana_Pull(Action):
         super().__init__(new_game_engine)
         self.name = "Mana Pull"
     def load(self):
-        self.relative_path_filename = "/assets/images/cards/players/arythrea/card_mana_pull.png"
-        self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
+        self.relative_path_filename = "assets/images/cards/players/arythrea/card_mana_pull.png"
+        self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self.fit_within_board()
         self.rect = self.image.get_rect()
         
@@ -186,8 +183,8 @@ class Card_Arythrea_Concentration(Action):
         super().__init__(new_game_engine)
         self.name = "Concentration"
     def load(self):
-        self.relative_path_filename = "/assets/images/cards/players/arythrea/card_concentration.png"
-        self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
+        self.relative_path_filename = "assets/images/cards/players/arythrea/card_concentration.png"
+        self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self.fit_within_board()
         self.rect = self.image.get_rect()
         
@@ -196,7 +193,7 @@ class Card_Arythrea_Improvisation(Action):
         super().__init__(new_game_engine)
         self.name = "Improvisation"
     def load(self):
-        self.relative_path_filename = "/assets/images/cards/players/arythrea/card_improvisation.png"
-        self.image = pygame.image.load(current_folder + self.relative_path_filename).convert_alpha()
+        self.relative_path_filename = "assets/images/cards/players/arythrea/card_improvisation.png"
+        self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self.fit_within_board()
         self.rect = self.image.get_rect()

@@ -1,5 +1,4 @@
 import main
-import board
 import pygame
 
 PANEL_OTHER_COLOR = (160, 160, 160)

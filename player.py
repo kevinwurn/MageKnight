@@ -1,7 +1,6 @@
 import pygame
 import game
 import actions
-import cards
 
 # constats for players
 ARYTHREA = 40

@@ -31,6 +31,7 @@ CRYSTAL_BLACK = 26
 
 class Game(object):
     num_rounds = None
+    current_round = None
     time_of_day = None
     arythrea = None
     num_green_tiles = None
@@ -57,6 +58,7 @@ class Game(object):
 
     def __init__(self, screen):
         self.num_rounds = 6
+        self.current_round = 1
         self.num_green_tiles = 7
         self.num_brown_non_city_tiles = 2
         self.num_brown_city_tiles = 2
@@ -85,13 +87,14 @@ class Game(object):
         # crap... forgot about tokens... will need to add token offers to game class as well
         # common skill area
         print("setup")
-        self.start_round()
+        if self.current_player == player.ARYTHREA:
+            self.arythrea.draw_hand()
 
     
     def start_round(self):
         # don't forget to choose tactics first
         # roll mana die
-        #change offers
+        # change offers
         print("start round")
         if self.current_player == player.ARYTHREA:
             self.arythrea.draw_hand()

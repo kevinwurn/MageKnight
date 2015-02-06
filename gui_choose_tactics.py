@@ -1,9 +1,6 @@
 from pgu import gui
-import pygame
-import os
 import tactics
 import game
-from actions import current_folder
 
 TACTIC_CARD_WIDTH = 100
 TACTIC_CARD_HEIGHT = 150
@@ -19,7 +16,6 @@ class GUIChooseTactics(object):
     tactic = None
 
     def __init__(self, game_screen, game_engine):
-        current_folder = os.path.dirname(os.path.abspath(__file__))
         self._screen = game_screen
         self._engine = game_engine
         self._images = []
@@ -31,13 +27,13 @@ class GUIChooseTactics(object):
         #first row
         self._table.tr()
         if self._engine.time_of_day == game.TIME_DAY:
-            self._images.append(gui.Image(current_folder + "/assets/images/cards/tactics/gui_tactics_day_1_early_bird.png"))
-            self._images.append(gui.Image(current_folder + "/assets/images/cards/tactics/gui_tactics_day_2_rethink.png"))
-            self._images.append(gui.Image(current_folder + "/assets/images/cards/tactics/gui_tactics_day_3_mana_steal.png"))
+            self._images.append(gui.Image("assets/images/cards/tactics/gui_tactics_day_1_early_bird.png"))
+            self._images.append(gui.Image("assets/images/cards/tactics/gui_tactics_day_2_rethink.png"))
+            self._images.append(gui.Image("assets/images/cards/tactics/gui_tactics_day_3_mana_steal.png"))
         elif self._engine.time_of_day == game.TIME_NIGHT:
-            self._images.append(gui.Image(current_folder + "/assets/images/cards/tactics/gui_tactics_night_1_from_the_dusk.png"))
-            self._images.append(gui.Image(current_folder + "/assets/images/cards/tactics/gui_tactics_night_2_long_night.png"))
-            self._images.append(gui.Image(current_folder + "/assets/images/cards/tactics/gui_tactics_night_3_mana_search.png"))
+            self._images.append(gui.Image("assets/images/cards/tactics/gui_tactics_night_1_from_the_dusk.png"))
+            self._images.append(gui.Image("assets/images/cards/tactics/gui_tactics_night_2_long_night.png"))
+            self._images.append(gui.Image("assets/images/cards/tactics/gui_tactics_night_3_mana_search.png"))
         for img in self._images:
             self._table.td(img)
         #second row 
@@ -49,13 +45,13 @@ class GUIChooseTactics(object):
         #third row      
         self._table.tr()
         if self._engine.time_of_day == game.TIME_DAY:
-            self._images.append(gui.Image(current_folder + "/assets/images/cards/tactics/gui_tactics_day_4_planning.png"))
-            self._images.append(gui.Image(current_folder + "/assets/images/cards/tactics/gui_tactics_day_5_great_start.png"))
-            self._images.append(gui.Image(current_folder + "/assets/images/cards/tactics/gui_tactics_day_6_the_right_moment.png"))
+            self._images.append(gui.Image("assets/images/cards/tactics/gui_tactics_day_4_planning.png"))
+            self._images.append(gui.Image("assets/images/cards/tactics/gui_tactics_day_5_great_start.png"))
+            self._images.append(gui.Image("assets/images/cards/tactics/gui_tactics_day_6_the_right_moment.png"))
         elif self._engine.time_of_day == game.TIME_NIGHT:
-            self._images.append(gui.Image(current_folder + "/assets/images/cards/tactics/gui_tactics_night_4_midnight_meditation.png"))
-            self._images.append(gui.Image(current_folder + "/assets/images/cards/tactics/gui_tactics_night_5_preparation.png"))
-            self._images.append(gui.Image(current_folder + "/assets/images/cards/tactics/gui_tactics_night_6_sparing_power.png"))
+            self._images.append(gui.Image("assets/images/cards/tactics/gui_tactics_night_4_midnight_meditation.png"))
+            self._images.append(gui.Image("assets/images/cards/tactics/gui_tactics_night_5_preparation.png"))
+            self._images.append(gui.Image("assets/images/cards/tactics/gui_tactics_night_6_sparing_power.png"))
         for i in range(3, 6):
             self._table.td(self._images[i])
         #fourth row
