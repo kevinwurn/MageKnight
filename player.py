@@ -141,6 +141,7 @@ class Player(pygame.sprite.Sprite):
     fame = None
     level_up = None
     units = None
+    tactic = None
     location_tile_num = None
     location_hex_num = None
     
@@ -170,11 +171,12 @@ class Player(pygame.sprite.Sprite):
         self.reputation = ReputationTracker() 
         self.fame = FameTracker()
         self.max_units = PLAYER_MAX_UNITS
-        self.units = [PLAYER_MAX_UNITS]
+        self.units = []
+        self.tactic = 0
         self.location_tile_num = 0
         self.location_hex_num = 6
         
-    def start_turn(self):
+    def draw_hand(self):
         # process triggers = add magical_glade.interact_start()
         for i in range(self.hand_limit):
             card = self.draw()

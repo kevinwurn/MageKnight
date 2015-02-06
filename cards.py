@@ -1,7 +1,6 @@
 import os
 import uuid
 import pygame
-import game
 
 current_folder = os.path.dirname(os.path.abspath(__file__))
 CARD_WIDTH = 50

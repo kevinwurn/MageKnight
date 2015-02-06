@@ -81,11 +81,21 @@ class Game(object):
         self.card_group = pygame.sprite.Group
         
     def setup(self):
-        # don't forget to choose tactics first
-        # roll mana die
         # setup all of the offers
         # crap... forgot about tokens... will need to add token offers to game class as well
         # common skill area
-        # round order
+        print("setup")
+        self.start_round()
+
+    
+    def start_round(self):
+        # don't forget to choose tactics first
+        # roll mana die
+        #change offers
+        print("start round")
         if self.current_player == player.ARYTHREA:
-            self.arythrea.start_turn()
+            self.arythrea.draw_hand()
+
+    def start_turn(self):
+        if self.current_player == player.ARYTHREA:
+            self.arythrea.draw_hand()                
