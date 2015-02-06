@@ -1,7 +1,6 @@
 import os
 import pygame
 import main
-import board
 import cards
 import player
 import gui_choose_tactics
@@ -116,16 +115,18 @@ class PanelPlayer(pygame.sprite.Sprite):
         self._panel_compoents.draw(self._screen)
     
     def check_btn_start_round_clicked(self, mousedown_coordinates):
-        if self._btn_start_round.rect.collidepoint(mousedown_coordinates):
-            tactics_panel = gui_choose_tactics.GUIChooseTactics(self._screen, self._game_engine)
-            tactics_panel.launch()
-            if self._game_engine.current_player == player.ARYTHREA:
-                self._game_engine.arythrea.tactic = tactics_panel.tactic
-                self._game_engine.arythrea.tactic.load()
-                self._game_engine.arythrea.tactic.rect.x = self._btn_start_round.rect.x
-                self._game_engine.arythrea.tactic.rect.y = self._btn_start_round.rect.y
-                self._game_engine.sprite_collection.append(self._game_engine.arythrea.tactic)
-                self._game_engine.card_group.add(self._game_engine.arythrea.tactic)
-                self._panel_compoents.add(self._game_engine.arythrea.tactic)
-            self._btn_start_round.kill()
+        if self._btn_start_round.alive():
+            if self._btn_start_round.rect.collidepoint(mousedown_coordinates):
+                tactics_panel = gui_choose_tactics.GUIChooseTactics(self._screen, self._game_engine)
+                tactics_panel.launch()
+                if self._game_engine.current_player == player.ARYTHREA:
+                    self._game_engine.arythrea.tactic = tactics_panel.tactic
+                    self._game_engine.arythrea.tactic.load()
+                    self._game_engine.arythrea.tactic.rect.x = self._btn_start_round.rect.x
+                    self._game_engine.arythrea.tactic.rect.y = self._btn_start_round.rect.y
+                    self._game_engine.sprite_collection.append(self._game_engine.arythrea.tactic)
+                    self._game_engine.card_group.add(self._game_engine.arythrea.tactic)
+                    self._panel_compoents.add(self._game_engine.arythrea.tactic)
+                self._btn_start_round.kill()
+                self._game_engine.sprite_collection.remove(self._btn_start_round)
         
