@@ -1,8 +1,10 @@
+import math
 import pygame
 import game
+import board
 import actions
 
-# constats for players
+# constants for players
 ARYTHREA = 40
 DUMMY = 45
 PLAYER_MAX_HAND_SIZE = 5
@@ -21,7 +23,10 @@ CARD_ASSET_TYPE_SIEGE_ATTACK = 3
 CARD_ASSET_TYPE_MOVE = 4
 CARD_ASSET_TYPE_INFLUENCE = 5
 CARD_ASSET_ACTION_TYPE_ADVANCED = 30
-CARD_ASSET_ACTION_TYPE_NON_ADVANCED = 31 
+CARD_ASSET_ACTION_TYPE_NON_ADVANCED = 31
+
+MINIATURE_WIDTH = 25
+MINIATURE_HEIGHT = 30 
 
 # pass around mainly for battling monsters.  Allowing for future development to assign individual assets to monsters 
 class CardAsset(object):
@@ -143,6 +148,7 @@ class Player(pygame.sprite.Sprite):
     tactic = None
     location_tile_num = None
     location_hex_num = None
+    relative_path_filename = None
     
     def __init__(self, new_game_engine):
         super().__init__()
@@ -174,7 +180,15 @@ class Player(pygame.sprite.Sprite):
         self.tactic = 0
         self.location_tile_num = 0
         self.location_hex_num = 6
-        
+    
+    def _fit_within_board(self):
+        self.image = pygame.transform.smoothscale(self.image, (MINIATURE_WIDTH, MINIATURE_HEIGHT))
+    
+    def set_board_location(self, x, y):
+        h = (math.sin(math.radians(30))*board.BOARD_HEX_WIDTH)
+        self.rect.x = x - board.BOARD_HEX_WIDTH + h + 2
+        self.rect.y = y - h - 2
+    
     def draw_hand(self):
         # process triggers = add magical_glade.interact_start()
         for i in range(self.hand_limit):
@@ -253,9 +267,16 @@ class Player(pygame.sprite.Sprite):
         return False
 
 class Arythrea(Player):
+    
+    
     def __init__(self, new_game_engine):
         super().__init__(new_game_engine)
         self.name = "Arythrea"
         list_of_cards = actions.Actions(self._game_engine).actions_collection
         for card in list_of_cards:
             self.deed_deck.append(card)
+    def load(self):
+        self.relative_path_filename = "assets/images/players/arythrea.png"
+        self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
+        self._fit_within_board()
+        self.rect = self.image.get_rect()

@@ -16,7 +16,7 @@ class Actions(object):
     def __init__(self, new_game_engine):
         self._game_engine = new_game_engine
         self.actions_collection = []
-        if self._game_engine.current_player == player.ARYTHREA:
+        if self._game_engine.chosen_player == player.ARYTHREA:
             self.actions_collection.append(Card_Arythrea_Battle_Versatility(self._game_engine))
             self.actions_collection.append(Card_Arythrea_Rage(self._game_engine))
             self.actions_collection.append(Card_Arythrea_Determination(self._game_engine))
@@ -42,7 +42,7 @@ class Card_Arythrea_Battle_Versatility(Action):
     def load(self):
         self.relative_path_filename = "assets/images/cards/players/arythrea/card_battle_versatility.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 
 
@@ -53,7 +53,7 @@ class Card_Arythrea_Rage(Action):
     def load(self):
         self.relative_path_filename = "assets/images/cards/players/arythrea/card_rage.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
     def play(self):
         if self._game_engine.battle_phase == game.BATTLE_PHASE_BLOCK:
@@ -95,7 +95,7 @@ class Card_Arythrea_Determination(Action):
     def load(self):
         self.relative_path_filename = "assets/images/cards/players/arythrea/card_determination.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 
 class Card_Arythrea_Swiftness(Action):
@@ -105,7 +105,7 @@ class Card_Arythrea_Swiftness(Action):
     def load(self):
         self.relative_path_filename = "assets/images/cards/players/arythrea/card_swiftness.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 
 class Card_Arythrea_March(Action):
@@ -115,7 +115,7 @@ class Card_Arythrea_March(Action):
     def load(self):
         self.relative_path_filename = "assets/images/cards/players/arythrea/card_march.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
         
 class Card_Arythrea_Stamina(Action):
@@ -125,7 +125,7 @@ class Card_Arythrea_Stamina(Action):
     def load(self):
         self.relative_path_filename = "assets/images/cards/players/arythrea/card_stamina.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
         
 class Card_Arythrea_Tranquility(Action):
@@ -135,7 +135,7 @@ class Card_Arythrea_Tranquility(Action):
     def load(self):
         self.relative_path_filename = "assets/images/cards/players/arythrea/card_tranquility.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
         
 class Card_Arythrea_Promise(Action):
@@ -145,7 +145,7 @@ class Card_Arythrea_Promise(Action):
     def load(self):
         self.relative_path_filename = "assets/images/cards/players/arythrea/card_promise.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
         
 class Card_Arythrea_Threaten(Action):
@@ -155,7 +155,7 @@ class Card_Arythrea_Threaten(Action):
     def load(self):
         self.relative_path_filename = "assets/images/cards/players/arythrea/card_threaten.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
         
 class Card_Arythrea_Crystalize(Action):
@@ -165,7 +165,7 @@ class Card_Arythrea_Crystalize(Action):
     def load(self):
         self.relative_path_filename = "assets/images/cards/players/arythrea/card_crystalize.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 
 class Card_Arythrea_Mana_Pull(Action):
@@ -175,7 +175,7 @@ class Card_Arythrea_Mana_Pull(Action):
     def load(self):
         self.relative_path_filename = "assets/images/cards/players/arythrea/card_mana_pull.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
         
 class Card_Arythrea_Concentration(Action):
@@ -185,7 +185,7 @@ class Card_Arythrea_Concentration(Action):
     def load(self):
         self.relative_path_filename = "assets/images/cards/players/arythrea/card_concentration.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
         
 class Card_Arythrea_Improvisation(Action):
@@ -195,5 +195,5 @@ class Card_Arythrea_Improvisation(Action):
     def load(self):
         self.relative_path_filename = "assets/images/cards/players/arythrea/card_improvisation.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()

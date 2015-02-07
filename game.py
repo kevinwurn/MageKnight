@@ -39,7 +39,7 @@ class Game(object):
     num_brown_city_tiles = None
     city_levels = None
     battle_phase = None
-    current_player = None
+    chosen_player = None
     advanced_actions_offer = None
     monestary_advanced_actions_offer = None
     advanced_actions_discard = None
@@ -55,6 +55,7 @@ class Game(object):
     tile_group = None
     token_group = None
     card_group = None
+    player_group = None
 
     def __init__(self, screen):
         self.num_rounds = 6
@@ -80,14 +81,15 @@ class Game(object):
         self.sprite_collection = []
         self.tile_group = pygame.sprite.Group()
         self.token_group = pygame.sprite.Group()
-        self.card_group = pygame.sprite.Group
+        self.card_group = pygame.sprite.Group()
+        self.player_group = pygame.sprite.GroupSingle()
         
     def setup(self):
         # setup all of the offers
         # crap... forgot about tokens... will need to add token offers to game class as well
         # common skill area
         print("setup")
-        if self.current_player == player.ARYTHREA:
+        if self.chosen_player == player.ARYTHREA:
             self.arythrea.draw_hand()
 
     
@@ -96,9 +98,9 @@ class Game(object):
         # roll mana die
         # change offers
         print("start round")
-        if self.current_player == player.ARYTHREA:
+        if self.chosen_player == player.ARYTHREA:
             self.arythrea.draw_hand()
 
     def start_turn(self):
-        if self.current_player == player.ARYTHREA:
+        if self.chosen_player == player.ARYTHREA:
             self.arythrea.draw_hand()                

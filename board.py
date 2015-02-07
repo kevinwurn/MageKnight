@@ -4,6 +4,7 @@ import main
 import board
 import tiles
 import hexes
+import player
 
 BOARD_COLOR = (0, 30, 100) #blue
 BOARD_HEX_BORDER_COLOR = (100, 100, 100) #grey
@@ -45,22 +46,22 @@ class Board(object):
         return pl
 
     # build the empty board.
-    def __build_tile_holder(self, zone_num, color, location_x, location_y):
-        hex1x = location_x
-        hex1y = location_y
-        hex2x = location_x + 1.5*BOARD_HEX_WIDTH
-        hex2y = location_y - BOARD_HEX_WIDTH
-        hex3x = hex2x + 1.5*BOARD_HEX_WIDTH
-        hex3y = location_y
-        hex4x = hex3x
-        hex4y = hex3y + 2*BOARD_HEX_WIDTH
-        hex5x = hex2x
-        hex5y = hex2y + 4*BOARD_HEX_WIDTH
+    def _build_tile_holder(self, zone_num, color, location_x, location_y):
+        hex0x = location_x
+        hex0y = location_y
+        hex1x = location_x + 1.5*BOARD_HEX_WIDTH
+        hex1y = location_y - BOARD_HEX_WIDTH
+        hex2x = hex1x + 1.5*BOARD_HEX_WIDTH
+        hex2y = location_y
+        hex3x = hex2x
+        hex3y = hex2y + 2*BOARD_HEX_WIDTH
+        hex4x = hex1x
+        hex4y = hex1y + 4*BOARD_HEX_WIDTH
+        hex5x = hex0x
+        hex5y = hex1y + 3*BOARD_HEX_WIDTH
         hex6x = hex1x
-        hex6y = hex2y + 3*BOARD_HEX_WIDTH
-        hex7x = hex2x
-        hex7y = hex2y + 2*BOARD_HEX_WIDTH
-        for i in range(1, 8):
+        hex6y = hex1y + 2*BOARD_HEX_WIDTH
+        for i in range(0, 7):
             exec("pl" + str(i) + " = self._return_hex_coordinates(hex" + str(i) + "x, hex" + str(i) + "y)")
             self._board_zones_collection[zone_num].hex_collection[i-1].polygon = eval('pl' + str(i))
             pygame.draw.polygon(self._board_screen, color, eval('pl' + str(i)))
@@ -73,6 +74,31 @@ class Board(object):
             for hex_num in range(7):
                 if self.point_inside_polygon(click_x, click_y, self._board_zones_collection[zone_num].hex_collection[hex_num].polygon):
                     return (zone_num, hex_num)
+                
+    # return coordinates based upon tile location and hex number
+    # yes the logic is duplicated code from _build_tile_holder and should be refactored
+    def get_coordinates(self, tile_location, hex_num):
+        h = (math.sin(math.radians(30))*BOARD_HEX_WIDTH)
+        tile_x, tile_y = tile_location
+        hex0x = tile_x
+        hex0y = tile_y
+        hex1x = tile_x + 1.5*BOARD_HEX_WIDTH
+        hex1y = tile_y - BOARD_HEX_WIDTH
+        hex2x = hex1x + 1.5*BOARD_HEX_WIDTH
+        hex2y = tile_y
+        hex3x = hex2x
+        hex3y = hex2y + 2*BOARD_HEX_WIDTH
+        hex4x = hex1x
+        hex4y = hex1y + 4*BOARD_HEX_WIDTH
+        hex5x = hex0x
+        hex5y = hex1y + 3*BOARD_HEX_WIDTH
+        hex6x = hex1x
+        hex6y = hex1y + 2*BOARD_HEX_WIDTH
+
+        coord_x = eval("hex" + str(hex_num) + "x")
+        coord_y = eval("hex" + str(hex_num) + "y")
+        
+        return (coord_x, coord_y)
 
     # mouse dragging on board.  currently tile exploration is handled here
     # also indirectly handles mouse clicks for debugging purposees only
@@ -133,14 +159,14 @@ class Board(object):
             p1x,p1y = p2x,p2y
         return inside
 
-    # build board -> then paint tiles -> then paint tokens 
+    # build board -> then paint tiles -> then paint tokens -> then player 
     def build(self):
         h = (math.sin(math.radians(30))*BOARD_HEX_WIDTH)
             
         #level 0
         x0 = main.GAME_SCREEN_WIDTH/5
         y0 = 2*BOARD_HEX_WIDTH
-        self.__build_tile_holder(0, BOARD_COLOR, x0, y0)
+        self._build_tile_holder(0, BOARD_COLOR, x0, y0)
     
         board_zone_num = 0
         first_time_num_for_current_level = 0
@@ -162,11 +188,18 @@ class Board(object):
                 else:
                     exec("x" +str(board_zone_num)+ " = -h-BOARD_HEX_WIDTH+x" +str(first_time_num_for_current_level+board_zone_num_for_level))
                     exec("y" +str(board_zone_num)+ " = 5*BOARD_HEX_WIDTH+y" +str(first_time_num_for_current_level+board_zone_num_for_level))
-                self.__build_tile_holder(board_zone_num, eval("[i + 20 * " +str(level)+ " for i in BOARD_COLOR]"), eval("x" +str(board_zone_num)), eval("y" +str(board_zone_num)))
+                self._build_tile_holder(board_zone_num, eval("[i + 20 * " +str(level)+ " for i in BOARD_COLOR]"), eval("x" +str(board_zone_num)), eval("y" +str(board_zone_num)))
         # paint tiles
         for i in range(len(self._tiles.tile_collection)):
             if isinstance(self._tiles.tile_collection[i], tiles.TileNonPlaceholder):
-                self._tiles.tile_collection[i].set_location(eval("x" + str(i)), eval("y" + str(i)))
+                self._tiles.tile_collection[i].set_board_location(eval("x" + str(i)), eval("y" + str(i)))
         self._game_engine.tile_group.draw(self._board_screen)
         
         # then paint tokens
+        
+        # paint player miniature
+        if self._game_engine.chosen_player == player.ARYTHREA:
+            x, y = self.get_coordinates((eval("x" + str(self._game_engine.arythrea.location_tile_num)), eval("y" + str(self._game_engine.arythrea.location_tile_num))), self._game_engine.arythrea.location_hex_num)
+            self._game_engine.arythrea.set_board_location(x, y)
+
+        self._game_engine.player_group.draw(self._board_screen)

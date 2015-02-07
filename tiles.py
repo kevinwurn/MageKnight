@@ -55,9 +55,9 @@ class TileNonPlaceholder(Tile):
         self.token_collection = []
         self.city_level = 0
     # need to skew image to be a little taller and skinnier
-    def fit_within_board(self):
+    def _fit_within_board(self):
         self.image = pygame.transform.smoothscale(self.image, (115,137))
-    def set_location(self, x, y):
+    def set_board_location(self, x, y):
         h = (math.sin(math.radians(30))*board.BOARD_HEX_WIDTH)
         self.rect.x = x - board.BOARD_HEX_WIDTH + 1
         self.rect.y = y - 2*board.BOARD_HEX_WIDTH + h/2-4
@@ -98,7 +98,7 @@ class Tile_Start_Wedge(TileNonPlaceholder):
     def load(self):
         self.relative_path_filename = "assets/images/tiles/tile_start_wedge.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 class Tile_Green_1(TileNonPlaceholder):
     def __init__(self, new_game_engine):
@@ -114,7 +114,7 @@ class Tile_Green_1(TileNonPlaceholder):
     def load(self):
         self.relative_path_filename = "assets/images/tiles/tile_green_1.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 class Tile_Green_2(TileNonPlaceholder):
     def __init__(self, new_game_engine):
@@ -130,7 +130,7 @@ class Tile_Green_2(TileNonPlaceholder):
     def load(self):
         self.relative_path_filename = "assets/images/tiles/tile_green_2.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 class Tile_Green_3(TileNonPlaceholder):
     def __init__(self, new_game_engine):
@@ -146,7 +146,7 @@ class Tile_Green_3(TileNonPlaceholder):
     def load(self):
         self.relative_path_filename = "assets/images/tiles/tile_green_3.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 class Tile_Green_4(TileNonPlaceholder):
     def __init__(self, new_game_engine):
@@ -162,7 +162,7 @@ class Tile_Green_4(TileNonPlaceholder):
     def load(self):
         self.relative_path_filename = "assets/images/tiles/tile_green_4.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 class Tile_Green_5(TileNonPlaceholder):
     def __init__(self, new_game_engine):
@@ -178,7 +178,7 @@ class Tile_Green_5(TileNonPlaceholder):
     def load(self):
         self.relative_path_filename = "assets/images/tiles/tile_green_5.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 class Tile_Green_6(TileNonPlaceholder):
     def __init__(self, new_game_engine):
@@ -194,7 +194,7 @@ class Tile_Green_6(TileNonPlaceholder):
     def load(self):
         self.relative_path_filename = "assets/images/tiles/tile_green_6.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 class Tile_Green_7(TileNonPlaceholder):
     def __init__(self, new_game_engine):
@@ -210,7 +210,7 @@ class Tile_Green_7(TileNonPlaceholder):
     def load(self):
         self.relative_path_filename = "assets/images/tiles/tile_green_7.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 class Tile_Green_8(TileNonPlaceholder):
     def __init__(self, new_game_engine):
@@ -226,7 +226,7 @@ class Tile_Green_8(TileNonPlaceholder):
     def load(self):
         self.relative_path_filename = "assets/images/tiles/tile_green_8.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 class Tile_Green_9(TileNonPlaceholder):
     def __init__(self, new_game_engine):
@@ -242,7 +242,7 @@ class Tile_Green_9(TileNonPlaceholder):
     def load(self):
         self.relative_path_filename = "assets/images/tiles/tile_green_9.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 class Tile_Green_10(TileNonPlaceholder):
     def __init__(self, new_game_engine):
@@ -258,7 +258,7 @@ class Tile_Green_10(TileNonPlaceholder):
     def load(self):
         self.relative_path_filename = "assets/images/tiles/tile_green_10.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 class Tile_Green_11(TileNonPlaceholder):
     def __init__(self, new_game_engine):
@@ -274,7 +274,7 @@ class Tile_Green_11(TileNonPlaceholder):
     def load(self):
         self.relative_path_filename = "assets/images/tiles/tile_green_11.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 class Tile_Green_12(TileNonPlaceholder):
     def __init__(self, new_game_engine):
@@ -293,7 +293,7 @@ class Tile_Green_12(TileNonPlaceholder):
     def load(self):
         self.relative_path_filename = "assets/images/tiles/tile_green_12.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 class Tile_Green_13(TileNonPlaceholder):
     def __init__(self, new_game_engine):
@@ -311,7 +311,7 @@ class Tile_Green_13(TileNonPlaceholder):
     def load(self):
         self.relative_path_filename = "assets/images/tiles/tile_green_13.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 class Tile_Green_14(TileNonPlaceholder):
     def __init__(self, new_game_engine):
@@ -328,7 +328,7 @@ class Tile_Green_14(TileNonPlaceholder):
     def load(self):
         self.relative_path_filename = "assets/images/tiles/tile_green_14.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 class Tile_Brown_1(TileNonPlaceholder):
     def __init__(self, new_game_engine):
@@ -344,7 +344,7 @@ class Tile_Brown_1(TileNonPlaceholder):
     def load(self):
         self.relative_path_filename = "assets/images/tiles/tile_brown_1.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 class Tile_Brown_2(TileNonPlaceholder):
     def __init__(self, new_game_engine):
@@ -360,7 +360,7 @@ class Tile_Brown_2(TileNonPlaceholder):
     def load(self):
         self.relative_path_filename = "assets/images/tiles/tile_brown_2.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 class Tile_Brown_3(TileNonPlaceholder):
     def __init__(self, new_game_engine):
@@ -376,7 +376,7 @@ class Tile_Brown_3(TileNonPlaceholder):
     def load(self):
         self.relative_path_filename = "assets/images/tiles/tile_brown_3.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 class Tile_Brown_4(TileNonPlaceholder):
     def __init__(self, new_game_engine):
@@ -392,7 +392,7 @@ class Tile_Brown_4(TileNonPlaceholder):
     def load(self):
         self.relative_path_filename = "assets/images/tiles/tile_brown_4.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 class Tile_Brown_5_Green_City(TileNonPlaceholder):
     def __init__(self, new_game_engine):
@@ -408,7 +408,7 @@ class Tile_Brown_5_Green_City(TileNonPlaceholder):
     def load(self):
         self.relative_path_filename = "assets/images/tiles/tile_brown_5_green_city.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 class Tile_Brown_6_Blue_City(TileNonPlaceholder):
     def __init__(self, new_game_engine):
@@ -424,7 +424,7 @@ class Tile_Brown_6_Blue_City(TileNonPlaceholder):
     def load(self):
         self.relative_path_filename = "assets/images/tiles/tile_brown_6_blue_city.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 class Tile_Brown_7_White_City(TileNonPlaceholder):
     def __init__(self, new_game_engine):
@@ -440,7 +440,7 @@ class Tile_Brown_7_White_City(TileNonPlaceholder):
     def load(self):
         self.relative_path_filename = "assets/images/tiles/tile_brown_7_white_city.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 class Tile_Brown_8_Red_City(TileNonPlaceholder):
     def __init__(self, new_game_engine):
@@ -456,7 +456,7 @@ class Tile_Brown_8_Red_City(TileNonPlaceholder):
     def load(self):
         self.relative_path_filename = "assets/images/tiles/tile_brown_8_red_city.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 class Tile_Brown_9(TileNonPlaceholder):
     def __init__(self, new_game_engine):
@@ -477,7 +477,7 @@ class Tile_Brown_9(TileNonPlaceholder):
     def load(self):
         self.relative_path_filename = "assets/images/tiles/tile_brown_9.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 class Tile_Brown_10(TileNonPlaceholder):
     def __init__(self, new_game_engine):
@@ -493,7 +493,7 @@ class Tile_Brown_10(TileNonPlaceholder):
     def load(self):
         self.relative_path_filename = "assets/images/tiles/tile_brown_10.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
-        self.fit_within_board()
+        self._fit_within_board()
         self.rect = self.image.get_rect()
 
 class Tiles(object):

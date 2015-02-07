@@ -32,7 +32,7 @@ class PanelPlayer(pygame.sprite.Sprite):
         self._screen = game_screen
         self._game_engine = new_game_engine
         self._game_board = new_game_board
-        if self._game_engine.current_player == player.ARYTHREA:
+        if self._game_engine.chosen_player == player.ARYTHREA:
             self._player = self._game_engine.arythrea
 
         #build panel
@@ -117,7 +117,7 @@ class PanelPlayer(pygame.sprite.Sprite):
             if self._btn_start_round.rect.collidepoint(mousedown_coordinates):
                 tactics_panel = gui_choose_tactics.GUIChooseTactics(self._screen, self._game_engine)
                 tactics_panel.launch()
-                if self._game_engine.current_player == player.ARYTHREA:
+                if self._game_engine.chosen_player == player.ARYTHREA:
                     self._game_engine.arythrea.tactic = tactics_panel.tactic
                     self._game_engine.arythrea.tactic.load()
                     self._game_engine.arythrea.tactic.rect.x = self._btn_start_round.rect.x
