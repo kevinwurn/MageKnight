@@ -63,7 +63,7 @@ class Board(object):
         hex6y = hex1y + 2*BOARD_HEX_WIDTH
         for i in range(0, 7):
             exec("pl" + str(i) + " = self._return_hex_coordinates(hex" + str(i) + "x, hex" + str(i) + "y)")
-            self._board_zones_collection[zone_num].hex_collection[i-1].polygon = eval('pl' + str(i))
+            self._board_zones_collection[zone_num].hex_collection[i].polygon = eval('pl' + str(i))
             pygame.draw.polygon(self._board_screen, color, eval('pl' + str(i)))
             pygame.draw.polygon(self._board_screen, BOARD_HEX_BORDER_COLOR, eval('pl' + str(i)), BOARD_HEX_BORDER_WIDTH)
     
@@ -100,7 +100,7 @@ class Board(object):
         
         return (coord_x, coord_y)
 
-    # mouse dragging on board.  currently tile exploration is handled here
+    # mouse dragging on board.  moving player and tile exploration is handled here
     # also indirectly handles mouse clicks for debugging purposees only
     def check_mousedrag(self, mousedown_coordinates, mouseup_coordinates):
         mousedown_location = self.get_board_zone(mousedown_coordinates)
@@ -111,25 +111,58 @@ class Board(object):
             # mouse has been dragged and clicked.  not just clicked
             # check for exploration
             if mousedown_location != mouseup_location:
-                #check if dragged from tile to board and if hexes are adjacent
-                if isinstance(self._tiles.tile_collection[mousedown_location[0]].hexes.hex_collection[mousedown_location[1]], hexes.HexNonPlaceholder) and \
-                    isinstance(self._tiles.tile_collection[mouseup_location[0]].hexes.hex_collection[mouseup_location[1]], hexes.HexNonPlaceholder) == False and \
-                    self.return_if_hexes_adjacent(mousedown_coordinates, mouseup_coordinates):
-                        new_tile = self._tiles.draw()
-                        if new_tile == None:
-                            print("No more tiles left")
+                chosen_player = None
+                if self._game_engine.chosen_player == player.ARYTHREA:
+                    chosen_player = self._game_engine.arythrea
+                #check if clicked on player sprite and if dragged to adjacent hex
+                if chosen_player.rect.collidepoint(mousedown_coordinates) and \
+                     self.return_if_hexes_adjacent(mousedown_coordinates, mouseup_coordinates): 
+                        # check if dragged from tile to board 
+                        if isinstance(self._tiles.tile_collection[mouseup_location[0]].hexes.hex_collection[mouseup_location[1]], hexes.HexNonPlaceholder) == False \
+                            and chosen_player.move >= 2:
+                            new_tile = self._tiles.draw()
+                            if new_tile == None:
+                                print("No more tiles left")
+                                return False
+                            else:
+                                # first load the image - to be drawn once and only once
+                                # place new tile in tile collection to be placed on board when building board
+                                # and place in game engine's sprite collection and tile group to be drawn - to be magnified
+                                new_tile.load()
+                                self._tiles.tile_collection[mouseup_location[0]] = new_tile
+                                self._game_engine.sprite_collection.append(new_tile)
+                                self._game_engine.tile_group.add(new_tile)
+                                chosen_player.move -= 2
+                                print("Movement Cost: 2" + " | Move Points: " + str(chosen_player.move))
                         else:
-                            # first load the image - to be drawn once and only once
-                            # place new tile in tile collection to be placed on board when building board
-                            # and place in game engine's sprite collection and tile group to be drawn - to be magnified
-                            new_tile.load()
-                            self._tiles.tile_collection[mouseup_location[0]] = new_tile
-                            self._game_engine.sprite_collection.append(new_tile)
-                            self._game_engine.tile_group.add(new_tile)
+                            movement_cost = None
+                            try:
+                                movement_cost = self._tiles.tile_collection[mouseup_location[0]].hexes.hex_collection[mouseup_location[1]].movement_cost
+                            except TypeError:
+                                print("Is Either Forest or Desert")
+                            try:
+                                movement_cost = self._tiles.tile_collection[mouseup_location[0]].hexes.hex_collection[mouseup_location[1]].movement_cost(self._game_engine.time_of_day)
+                            except TypeError:
+                                print("Not Forest or Desert")
+                            # check for walls. add 1 if crossing wall
+                            if self._tiles.tile_collection[mouseup_location[0]].walls.return_if_cross_wall(mousedown_location[1], mouseup_location[1]):
+                                if movement_cost:
+                                    movement_cost += 1
+                            if movement_cost != None and chosen_player.move >= movement_cost:
+                                # update player location
+                                chosen_player.location_tile_num = mouseup_location[0]
+                                chosen_player.location_hex_num = mouseup_location[1]
+                                chosen_player.move -= movement_cost
+                                print("Movement Cost: " + str(movement_cost) + " | Move Points: " + str(chosen_player.move))
+                            else:
+                                print("Unable to Cross. Movement Cost: " + str(movement_cost) + "  Move Points: " + str(chosen_player.move))
+                                return False
             else:
-                print("Tile #:" +str(mousedown_location[0])+ " | Hex #:" + str(mousedown_location[1]))
+                print("Mousedown Location - Tile #:" +str(mousedown_location[0])+ " | Hex #:" + str(mousedown_location[1]))
+                print("Mouseup Location - Tile #:" +str(mouseup_location[0])+ " | Hex #:" + str(mouseup_location[1]))
                 if isinstance(self._tiles.tile_collection[mousedown_location[0]], tiles.TileNonPlaceholder):
                     print(self._tiles.tile_collection[mousedown_location[0]].hexes.hex_collection[mousedown_location[1]])
+        return True
     
     # based upon the distance between the two coordinates.  cludgy way of determining whether hexes are adjacent                                
     def return_if_hexes_adjacent(self, hex1_coordinates, hex2_coordinates):

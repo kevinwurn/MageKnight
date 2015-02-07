@@ -80,10 +80,6 @@ class ReputationTracker(object):
 class FameTracker(object):
     fame = None
     _tracker = None
-    @property
-    def level(self):
-        return self._tracker[self.fame]
-    
     def __init__(self):
         self.fame = 0
         self._tracker = [None]*FAME_TRACKER_END
@@ -107,6 +103,9 @@ class FameTracker(object):
             self._tracker[i] = 9
         for i in range(99, 119):
             self._tracker[i] = 10
+    @property
+    def level(self):
+        return self._tracker[self.fame]
     def increase_fame(self, points):
         if self.fame + points < FAME_TRACKER_END:
             self.fame += points

@@ -71,9 +71,9 @@ class Walls(object):
     def return_if_cross_wall(self, num_hex_1, num_hex_2):
         if self.wall_collection:
             for w in self.wall_collection:
-                if w.num_hex_1 == num_hex_1 and w.num_hex_2 == num_hex_2:
+                if w._num_hex_1 == num_hex_1 and w._num_hex_2 == num_hex_2:
                     return True
-                elif w.num_hex_1 == num_hex_2 and w.num_hex_2 == num_hex_1:
+                elif w._num_hex_1 == num_hex_2 and w._num_hex_2 == num_hex_1:
                     return True
         return False
 class Wall(object):

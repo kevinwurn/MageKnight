@@ -28,71 +28,69 @@ class Hex_Plain(HexNonPlaceholder):
     def __init__(self, number):
         super().__init__(number)
         self.type = HEX_PLAIN
-        @property
-        def movement_cost(self):
-            return 2
+    @property
+    def movement_cost(self):
+        return 2
 class Hex_Hill(HexNonPlaceholder):
     def __init__(self, number):
         super().__init__(number)
         self.type = HEX_HILL
-        @property
-        def movement_cost(self):
-            return 3
+    @property
+    def movement_cost(self):
+        return 3
 class Hex_Forest(HexNonPlaceholder):
     def __init__(self, number):
         super().__init__(number)
         self.type = HEX_FOREST
-        @property
-        def movement_cost(self, time_of_day):
-            if time_of_day == game.TIME_DAY:
-                return 3
-            elif time_of_day == game.TIME_NIGHT:
-                return 5
+    def movement_cost(self, time_of_day):
+        if time_of_day == game.TIME_DAY:
+            return 3
+        elif time_of_day == game.TIME_NIGHT:
+            return 5
 class Hex_Wasteland(HexNonPlaceholder):
     def __init__(self, number):
         super().__init__(number)
         self.type = HEX_WASTELAND
-        @property
-        def movement_cost(self):
-            return 4
+    @property
+    def movement_cost(self):
+        return 4
 class Hex_Desert(HexNonPlaceholder):
     def __init__(self, number):
         super().__init__(number)
         self.type = HEX_DESERT
-        @property
-        def movement_cost(self, time_of_day):
-            if time_of_day == game.TIME_DAY:
-                return 5
-            elif time_of_day == game.TIME_NIGHT:
-                return 3        
+    def movement_cost(self, time_of_day):
+        if time_of_day == game.TIME_DAY:
+            return 5
+        elif time_of_day == game.TIME_NIGHT:
+            return 3        
 class Hex_Swamp(HexNonPlaceholder):
     def __init__(self, number):
         super().__init__(number)
         self.type = HEX_SWAMP
-        @property
-        def movement_cost(self):
-            return 5
+    @property
+    def movement_cost(self):
+        return 5
 class Hex_Lake(HexNonPlaceholder):
     def __init__(self, number):
         super().__init__(number)
         self.type = HEX_LAKE
-        @property
-        def movement_cost(self):
-            return None
+    @property
+    def movement_cost(self):
+        return None
 class Hex_Mountain(HexNonPlaceholder):
     def __init__(self, number):
         super().__init__(number)
         self.type = HEX_MOUNTAIN
-        @property
-        def movement_cost(self):
-            return None
+    @property
+    def movement_cost(self):
+        return None
 class Hex_City(HexNonPlaceholder):
     def __init__(self, number):
         super().__init__(number)
         self.type = HEX_CITY
-        @property
-        def movement_cost(self):
-            return 2
+    @property
+    def movement_cost(self):
+        return 2
 
 class Hexes(object):
     hex_collection = None
