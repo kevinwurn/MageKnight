@@ -40,7 +40,7 @@ class Card_Arythrea_Battle_Versatility(Action):
         super().__init__(new_game_engine)
         self.name = "Battle Versatility"
     def load(self):
-        self.relative_path_filename = "assets/images/cards/players/arythrea/card_battle_versatility.png"
+        self.relative_path_filename = "assets/images/players/arythrea/cards/card_battle_versatility.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self._fit_within_board()
         self.rect = self.image.get_rect()
@@ -51,7 +51,7 @@ class Card_Rage(Action):
         super().__init__(new_game_engine)
         self.name = "Rage"
     def load(self):
-        self.relative_path_filename = "assets/images/cards/players/card_rage.png"
+        self.relative_path_filename = "assets/images/cards/actions/card_rage.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self._fit_within_board()
         self.rect = self.image.get_rect()
@@ -93,7 +93,7 @@ class Card_Determination(Action):
         super().__init__(new_game_engine)
         self.name = "Determination"
     def load(self):
-        self.relative_path_filename = "assets/images/cards/players/card_determination.png"
+        self.relative_path_filename = "assets/images/cards/actions/card_determination.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self._fit_within_board()
         self.rect = self.image.get_rect()
@@ -103,7 +103,7 @@ class Card_Swiftness(Action):
         super().__init__(new_game_engine)
         self.name = "Swiftness"
     def load(self):
-        self.relative_path_filename = "assets/images/cards/players/card_swiftness.png"
+        self.relative_path_filename = "assets/images/cards/actions/card_swiftness.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self._fit_within_board()
         self.rect = self.image.get_rect()
@@ -113,7 +113,7 @@ class Card_March(Action):
         super().__init__(new_game_engine)
         self.name = "March"
     def load(self):
-        self.relative_path_filename = "assets/images/cards/players/card_march.png"
+        self.relative_path_filename = "assets/images/cards/actions/card_march.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self._fit_within_board()
         self.rect = self.image.get_rect()
@@ -123,7 +123,7 @@ class Card_Stamina(Action):
         super().__init__(new_game_engine)
         self.name = "Stamina"
     def load(self):
-        self.relative_path_filename = "assets/images/cards/players/card_stamina.png"
+        self.relative_path_filename = "assets/images/cards/actions/card_stamina.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self._fit_within_board()
         self.rect = self.image.get_rect()
@@ -133,7 +133,7 @@ class Card_Tranquility(Action):
         super().__init__(new_game_engine)
         self.name = "Tranquility"
     def load(self):
-        self.relative_path_filename = "assets/images/cards/players/card_tranquility.png"
+        self.relative_path_filename = "assets/images/cards/actions/card_tranquility.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self._fit_within_board()
         self.rect = self.image.get_rect()
@@ -143,7 +143,7 @@ class Card_Promise(Action):
         super().__init__(new_game_engine)
         self.name = "Promise"
     def load(self):
-        self.relative_path_filename = "assets/images/cards/players/card_promise.png"
+        self.relative_path_filename = "assets/images/cards/actions/card_promise.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self._fit_within_board()
         self.rect = self.image.get_rect()
@@ -153,7 +153,7 @@ class Card_Threaten(Action):
         super().__init__(new_game_engine)
         self.name = "Threaten"
     def load(self):
-        self.relative_path_filename = "assets/images/cards/players/card_threaten.png"
+        self.relative_path_filename = "assets/images/cards/actions/card_threaten.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self._fit_within_board()
         self.rect = self.image.get_rect()
@@ -163,7 +163,7 @@ class Card_Crystalize(Action):
         super().__init__(new_game_engine)
         self.name = "Crystalize"
     def load(self):
-        self.relative_path_filename = "assets/images/cards/players/card_crystalize.png"
+        self.relative_path_filename = "assets/images/cards/actions/card_crystalize.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self._fit_within_board()
         self.rect = self.image.get_rect()
@@ -173,7 +173,7 @@ class Card_Mana_Pull(Action):
         super().__init__(new_game_engine)
         self.name = "Mana Pull"
     def load(self):
-        self.relative_path_filename = "assets/images/cards/players/card_mana_pull.png"
+        self.relative_path_filename = "assets/images/cards/actions/card_mana_pull.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self._fit_within_board()
         self.rect = self.image.get_rect()
@@ -183,7 +183,7 @@ class Card_Concentration(Action):
         super().__init__(new_game_engine)
         self.name = "Concentration"
     def load(self):
-        self.relative_path_filename = "assets/images/cards/players/card_concentration.png"
+        self.relative_path_filename = "assets/images/cards/actions/card_concentration.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self._fit_within_board()
         self.rect = self.image.get_rect()
@@ -193,7 +193,7 @@ class Card_Improvisation(Action):
         super().__init__(new_game_engine)
         self.name = "Improvisation"
     def load(self):
-        self.relative_path_filename = "assets/images/cards/players/card_improvisation.png"
+        self.relative_path_filename = "assets/images/cards/actions/card_improvisation.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self._fit_within_board()
         self.rect = self.image.get_rect()

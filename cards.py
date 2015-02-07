@@ -44,7 +44,7 @@ class Card_Player(Card):
     def __init__(self, new_engine_game):
         super().__init__(new_engine_game)
     def load(self):
-        self.relative_path_filename = "assets/images/cards/players/arythrea/card_arythrea.png"
+        self.relative_path_filename = "assets/images/players/arythrea/cards/card_arythrea.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self._fit_within_board()
         self.rect = self.image.get_rect()    

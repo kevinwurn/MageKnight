@@ -4,6 +4,7 @@ import advanced_actions
 import spells
 import artifacts
 import units
+import mana_die
 
 TIME_DAY = 0
 TIME_NIGHT = 1
@@ -51,7 +52,9 @@ class Game(object):
     units_grey_discard = None
     units_gold_offer = None
     units_gold_discard = None
-    sprite_collection = None
+    num_die = None
+    mana_dice = None
+    magnify_collection = None
     tile_group = None
     token_group = None
     card_group = None
@@ -78,17 +81,24 @@ class Game(object):
         self.units_grey_discard = []
         self.units_gold_offer = units.GoldUnits
         self.units_gold_discard = []
-        self.sprite_collection = []
+        self.num_die = 3
+        self.mana_dice = []
+        for i in range(self.num_die):
+            self.mana_dice.append(mana_die.ManaDie())
+        self.magnify_collection = []
         self.tile_group = pygame.sprite.Group()
         self.token_group = pygame.sprite.Group()
         self.card_group = pygame.sprite.Group()
         self.player_group = pygame.sprite.GroupSingle()
+        self.dice_group = pygame.sprite.Group()
         
     def setup(self):
         # setup all of the offers
         # crap... forgot about tokens... will need to add token offers to game class as well
         # common skill area
         print("setup")
+        for i in range(self.num_die):
+            self.mana_dice[i].roll()
         if self.chosen_player == player.ARYTHREA:
             self.arythrea.draw_hand()
 
@@ -98,6 +108,8 @@ class Game(object):
         # roll mana die
         # change offers
         print("start round")
+        for i in range(self.num_die):
+            self.mana_dice[i].roll()
         if self.chosen_player == player.ARYTHREA:
             self.arythrea.draw_hand()
 

@@ -515,7 +515,7 @@ class Tiles(object):
         tile = Tile_Start_Wedge(self._game_engine)
         tile.load()
         self.tile_collection.append(tile)
-        self._game_engine.sprite_collection.append(tile)
+        self._game_engine.magnify_collection.append(tile)
         self._game_engine.tile_group.add(tile)
             
         # fill tile collection with placeholder tiles

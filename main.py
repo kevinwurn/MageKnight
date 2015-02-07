@@ -24,7 +24,7 @@ def main():
         game_engine.chosen_player = player.ARYTHREA
         arythrea = player.Arythrea(game_engine)
         arythrea.load()
-        game_engine.sprite_collection.append(arythrea)
+        game_engine.magnify_collection.append(arythrea)
         game_engine.player_group.add(arythrea)
         game_engine.arythrea = arythrea
     else:
@@ -32,7 +32,7 @@ def main():
         arythrea = player.Arythrea(game_engine)
         game_engine.arythrea = arythrea
         arythrea.load()
-        game_engine.sprite_collection.append(arythrea)
+        game_engine.magnify_collection.append(arythrea)
         game_engine.player_group.add(arythrea)
         game_engine.arythrea = arythrea
     game_engine.setup()
@@ -60,7 +60,7 @@ def main():
                 game_board.check_mousedrag(temp_mousedown_coordinates, pygame.mouse.get_pos())
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_m:
-                    for s in game_engine.sprite_collection:
+                    for s in game_engine.magnify_collection:
                         if s.rect.collidepoint(pygame.mouse.get_pos()):
                             magnify_sprites.append(s)
                     if magnify_sprites:

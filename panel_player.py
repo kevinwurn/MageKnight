@@ -55,6 +55,7 @@ class PanelPlayer(pygame.sprite.Sprite):
 
         #panel_compoenents sprite group        
         self._panel_compoents = pygame.sprite.Group()
+        self._dice = pygame.sprite.Group()
         #TOP ROW
         #build player card
         self._player_card = cards.Card_Player(self._game_engine)
@@ -62,6 +63,7 @@ class PanelPlayer(pygame.sprite.Sprite):
         self._add_card_to_top(self._player_card)
 
         #BOTTOM ROW
+        #add start round button
         self._btn_start_round = pygame.sprite.Sprite()
         self._btn_start_round.image = pygame.Surface([cards.CARD_WIDTH, cards.CARD_HEIGHT])
         self._btn_start_round.image.fill((0,0,0))
@@ -96,7 +98,7 @@ class PanelPlayer(pygame.sprite.Sprite):
         card.rect.x = self._x1_offset
         card.rect.y = self._y1_offset
         self._panel_compoents.add(card)
-        self._game_engine.sprite_collection.append(card)
+        self._game_engine.magnify_collection.append(card)
         self._game_engine.card_group.add(card)
         self._x1_offset += PANEL_PLAYER_SPACE_BETWEEN_CARDS + cards.CARD_WIDTH
         
@@ -104,13 +106,14 @@ class PanelPlayer(pygame.sprite.Sprite):
         card.rect.x = self._x2_offset
         card.rect.y = self._y2_offset
         self._panel_compoents.add(card)
-        self._game_engine.sprite_collection.append(card)
+        self._game_engine.magnify_collection.append(card)
         self._game_engine.card_group.add(card)
         self._x2_offset += PANEL_PLAYER_SPACE_BETWEEN_CARDS + cards.CARD_WIDTH
     
     def paint(self):
         pygame.draw.rect(self._screen, PANEL_PLAYER_COLOR, self.rect)
         self._panel_compoents.draw(self._screen)
+        self._dice.draw(self._screen)
     
     def check_btn_start_round_clicked(self, mousedown_coordinates):
         if self._btn_start_round.alive():
@@ -122,9 +125,9 @@ class PanelPlayer(pygame.sprite.Sprite):
                     self._game_engine.arythrea.tactic.load()
                     self._game_engine.arythrea.tactic.rect.x = self._btn_start_round.rect.x
                     self._game_engine.arythrea.tactic.rect.y = self._btn_start_round.rect.y
-                    self._game_engine.sprite_collection.append(self._game_engine.arythrea.tactic)
+                    self._game_engine.magnify_collection.append(self._game_engine.arythrea.tactic)
                     self._game_engine.card_group.add(self._game_engine.arythrea.tactic)
                     self._panel_compoents.add(self._game_engine.arythrea.tactic)
                 self._btn_start_round.kill()
-                self._game_engine.sprite_collection.remove(self._btn_start_round)
+                self._game_engine.magnify_collection.remove(self._btn_start_round)
         

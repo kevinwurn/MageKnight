@@ -130,7 +130,7 @@ class Board(object):
                                 # and place in game engine's sprite collection and tile group to be drawn - to be magnified
                                 new_tile.load()
                                 self._tiles.tile_collection[mouseup_location[0]] = new_tile
-                                self._game_engine.sprite_collection.append(new_tile)
+                                self._game_engine.magnify_collection.append(new_tile)
                                 self._game_engine.tile_group.add(new_tile)
                                 chosen_player.move -= 2
                                 print("Movement Cost: 2" + " | Move Points: " + str(chosen_player.move))
