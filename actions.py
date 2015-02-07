@@ -18,21 +18,21 @@ class Actions(object):
         self.actions_collection = []
         if self._game_engine.chosen_player == player.ARYTHREA:
             self.actions_collection.append(Card_Arythrea_Battle_Versatility(self._game_engine))
-            self.actions_collection.append(Card_Arythrea_Rage(self._game_engine))
-            self.actions_collection.append(Card_Arythrea_Determination(self._game_engine))
-            self.actions_collection.append(Card_Arythrea_Swiftness(self._game_engine))
-            self.actions_collection.append(Card_Arythrea_Swiftness(self._game_engine))
-            self.actions_collection.append(Card_Arythrea_March(self._game_engine))
-            self.actions_collection.append(Card_Arythrea_March(self._game_engine))
-            self.actions_collection.append(Card_Arythrea_Stamina(self._game_engine))
-            self.actions_collection.append(Card_Arythrea_Stamina(self._game_engine))
-            self.actions_collection.append(Card_Arythrea_Tranquility(self._game_engine))
-            self.actions_collection.append(Card_Arythrea_Promise(self._game_engine))
-            self.actions_collection.append(Card_Arythrea_Threaten(self._game_engine))
-            self.actions_collection.append(Card_Arythrea_Crystalize(self._game_engine))
-            self.actions_collection.append(Card_Arythrea_Mana_Pull(self._game_engine))
-            self.actions_collection.append(Card_Arythrea_Concentration(self._game_engine))
-            self.actions_collection.append(Card_Arythrea_Improvisation(self._game_engine))
+            self.actions_collection.append(Card_Rage(self._game_engine))
+            self.actions_collection.append(Card_Determination(self._game_engine))
+            self.actions_collection.append(Card_Swiftness(self._game_engine))
+            self.actions_collection.append(Card_Swiftness(self._game_engine))
+            self.actions_collection.append(Card_March(self._game_engine))
+            self.actions_collection.append(Card_March(self._game_engine))
+            self.actions_collection.append(Card_Stamina(self._game_engine))
+            self.actions_collection.append(Card_Stamina(self._game_engine))
+            self.actions_collection.append(Card_Tranquility(self._game_engine))
+            self.actions_collection.append(Card_Promise(self._game_engine))
+            self.actions_collection.append(Card_Threaten(self._game_engine))
+            self.actions_collection.append(Card_Crystalize(self._game_engine))
+            self.actions_collection.append(Card_Mana_Pull(self._game_engine))
+            self.actions_collection.append(Card_Concentration(self._game_engine))
+            self.actions_collection.append(Card_Improvisation(self._game_engine))
         random.shuffle(self.actions_collection)
 
 class Card_Arythrea_Battle_Versatility(Action):
@@ -46,12 +46,12 @@ class Card_Arythrea_Battle_Versatility(Action):
         self.rect = self.image.get_rect()
 
 
-class Card_Arythrea_Rage(Action):
+class Card_Rage(Action):
     def __init__(self, new_game_engine):
         super().__init__(new_game_engine)
         self.name = "Rage"
     def load(self):
-        self.relative_path_filename = "assets/images/cards/players/arythrea/card_rage.png"
+        self.relative_path_filename = "assets/images/cards/players/card_rage.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self._fit_within_board()
         self.rect = self.image.get_rect()
@@ -88,112 +88,112 @@ class Card_Arythrea_Rage(Action):
                     return True
         return False
 
-class Card_Arythrea_Determination(Action):
+class Card_Determination(Action):
     def __init__(self, new_game_engine):
         super().__init__(new_game_engine)
         self.name = "Determination"
     def load(self):
-        self.relative_path_filename = "assets/images/cards/players/arythrea/card_determination.png"
+        self.relative_path_filename = "assets/images/cards/players/card_determination.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self._fit_within_board()
         self.rect = self.image.get_rect()
 
-class Card_Arythrea_Swiftness(Action):
+class Card_Swiftness(Action):
     def __init__(self, new_game_engine):
         super().__init__(new_game_engine)
         self.name = "Swiftness"
     def load(self):
-        self.relative_path_filename = "assets/images/cards/players/arythrea/card_swiftness.png"
+        self.relative_path_filename = "assets/images/cards/players/card_swiftness.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self._fit_within_board()
         self.rect = self.image.get_rect()
 
-class Card_Arythrea_March(Action):
+class Card_March(Action):
     def __init__(self, new_game_engine):
         super().__init__(new_game_engine)
         self.name = "March"
     def load(self):
-        self.relative_path_filename = "assets/images/cards/players/arythrea/card_march.png"
+        self.relative_path_filename = "assets/images/cards/players/card_march.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self._fit_within_board()
         self.rect = self.image.get_rect()
         
-class Card_Arythrea_Stamina(Action):
+class Card_Stamina(Action):
     def __init__(self, new_game_engine):
         super().__init__(new_game_engine)
         self.name = "Stamina"
     def load(self):
-        self.relative_path_filename = "assets/images/cards/players/arythrea/card_stamina.png"
+        self.relative_path_filename = "assets/images/cards/players/card_stamina.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self._fit_within_board()
         self.rect = self.image.get_rect()
         
-class Card_Arythrea_Tranquility(Action):
+class Card_Tranquility(Action):
     def __init__(self, new_game_engine):
         super().__init__(new_game_engine)
         self.name = "Tranquility"
     def load(self):
-        self.relative_path_filename = "assets/images/cards/players/arythrea/card_tranquility.png"
+        self.relative_path_filename = "assets/images/cards/players/card_tranquility.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self._fit_within_board()
         self.rect = self.image.get_rect()
         
-class Card_Arythrea_Promise(Action):
+class Card_Promise(Action):
     def __init__(self, new_game_engine):
         super().__init__(new_game_engine)
         self.name = "Promise"
     def load(self):
-        self.relative_path_filename = "assets/images/cards/players/arythrea/card_promise.png"
+        self.relative_path_filename = "assets/images/cards/players/card_promise.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self._fit_within_board()
         self.rect = self.image.get_rect()
         
-class Card_Arythrea_Threaten(Action):
+class Card_Threaten(Action):
     def __init__(self, new_game_engine):
         super().__init__(new_game_engine)
         self.name = "Threaten"
     def load(self):
-        self.relative_path_filename = "assets/images/cards/players/arythrea/card_threaten.png"
+        self.relative_path_filename = "assets/images/cards/players/card_threaten.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self._fit_within_board()
         self.rect = self.image.get_rect()
         
-class Card_Arythrea_Crystalize(Action):
+class Card_Crystalize(Action):
     def __init__(self, new_game_engine):
         super().__init__(new_game_engine)
         self.name = "Crystalize"
     def load(self):
-        self.relative_path_filename = "assets/images/cards/players/arythrea/card_crystalize.png"
+        self.relative_path_filename = "assets/images/cards/players/card_crystalize.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self._fit_within_board()
         self.rect = self.image.get_rect()
 
-class Card_Arythrea_Mana_Pull(Action):
+class Card_Mana_Pull(Action):
     def __init__(self, new_game_engine):
         super().__init__(new_game_engine)
         self.name = "Mana Pull"
     def load(self):
-        self.relative_path_filename = "assets/images/cards/players/arythrea/card_mana_pull.png"
+        self.relative_path_filename = "assets/images/cards/players/card_mana_pull.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self._fit_within_board()
         self.rect = self.image.get_rect()
         
-class Card_Arythrea_Concentration(Action):
+class Card_Concentration(Action):
     def __init__(self, new_game_engine):
         super().__init__(new_game_engine)
         self.name = "Concentration"
     def load(self):
-        self.relative_path_filename = "assets/images/cards/players/arythrea/card_concentration.png"
+        self.relative_path_filename = "assets/images/cards/players/card_concentration.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self._fit_within_board()
         self.rect = self.image.get_rect()
         
-class Card_Arythrea_Improvisation(Action):
+class Card_Improvisation(Action):
     def __init__(self, new_game_engine):
         super().__init__(new_game_engine)
         self.name = "Improvisation"
     def load(self):
-        self.relative_path_filename = "assets/images/cards/players/arythrea/card_improvisation.png"
+        self.relative_path_filename = "assets/images/cards/players/card_improvisation.png"
         self.image = pygame.image.load(self.relative_path_filename).convert_alpha()
         self._fit_within_board()
         self.rect = self.image.get_rect()
